@@ -1,5 +1,7 @@
 # cloud-platform-terraform-gatekeeper
 
+Kubernetes native security policy enforcement, an upgrade of https://github.com/ministryofjustice/cloud-platform-terraform-opa
+
 ## Usage
 
 See the example/ subdir for specifics
@@ -54,3 +56,5 @@ Some of the inputs are tags. All infrastructure resources need to be tagged acco
 
 ## Reading Material
 
+[What is OPA Gatekeeper?](https://www.openpolicyagent.org/docs/latest/kubernetes-introduction/#what-is-opa-gatekeeper)
+[OPA Gatekeeper Library](https://github.com/open-policy-agent/gatekeeper-library)
