@@ -4,13 +4,39 @@
 
 See the example/ subdir for specifics
 
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [helm_release.gatekeeper](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubernetes_namespace.gatekeeper](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
+
 ## Inputs
 
+No inputs.
 
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-||||||
+## Outputs
 
+No outputs.
+<!-- END_TF_DOCS -->
 
 ## Tags
 
@@ -25,12 +51,6 @@ Some of the inputs are tags. All infrastructure resources need to be tagged acco
 | is-production |  | string | `false` | yes |
 | team_name |  | string | - | yes |
 | sqs_name |  | string | - | yes |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-|||
 
 ## Reading Material
 
