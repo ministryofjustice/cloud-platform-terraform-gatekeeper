@@ -44,9 +44,9 @@ jobs:
           kubectl get pods -n kube-system
           echo "current-context:" $(kubectl config current-context)
 
-#      - name: Run Go Tests
-#        working-directory: test
-#        run: |
-#          kind get kubeconfig > ./kubeconfig
-#          export KUBE_CONFIG_PATH="$PWD/kubeconfig"
-#          go test -v
+      - name: Run Go Tests
+        working-directory: test
+        run: |
+          kind get kubeconfig > ./kubeconfig
+          export KUBE_CONFIG_PATH="$PWD/kubeconfig"
+          go test -v
