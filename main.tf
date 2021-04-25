@@ -26,7 +26,6 @@ resource "helm_release" "gatekeeper" {
   repository = "https://open-policy-agent.github.io/gatekeeper/charts"
   chart      = "gatekeeper"
   version    = "3.4.0"
-  wait       = true
 
   set {
     name  = "enableDeleteOperations"
@@ -35,7 +34,7 @@ resource "helm_release" "gatekeeper" {
 
   set {
     name  = "postInstall.labelNamespace.enabled"
-    value = "false"
+    value = "true"
   }
 
   lifecycle {
