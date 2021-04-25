@@ -38,3 +38,9 @@ module "gatekeeper" {
 
   cluster_domain_name = "gatekeeper.cloud-platform.service.justice.gov.uk"
 }
+
+module "gatekeeper_templates" {
+  source = "../../templates"
+
+  depends_on = "module.gatekeeper.helm_release.gatekeeper"
+}

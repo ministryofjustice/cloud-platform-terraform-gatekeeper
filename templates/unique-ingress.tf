@@ -1,4 +1,3 @@
-# unique ingress
 resource "kubernetes_manifest" "unique-ingress" {
   provider = kubernetes-alpha
   depends_on = [helm_release.gatekeeper]

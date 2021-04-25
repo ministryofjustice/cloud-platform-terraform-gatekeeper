@@ -9,12 +9,11 @@ import (
 func Test(t *testing.T) {
 	t.Parallel()
 
-	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	terraformOptionsOnce := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "./unit-test",
 	})
 
 	defer terraform.Destroy(t, terraformOptions)
 
-	terraform.InitAndPlan(t, terraformOptions)
-	terraform.Apply(t, terraformOptions)
+	terraform.InitAndApply(t, terraformOptions)
 }
