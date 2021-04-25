@@ -5,7 +5,7 @@ resource "null_resource" "delay" {
   }
   depends_on = [helm_release.gatekeeper]
 }
-
+/*
 # unique ingress
 resource "kubernetes_manifest" "unique-ingress" {
   provider = kubernetes-alpha
@@ -57,3 +57,4 @@ resource "kubernetes_manifest" "unique-ingress" {
     }
   }
 }
+*/
