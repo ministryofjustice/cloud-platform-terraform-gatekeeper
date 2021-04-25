@@ -42,5 +42,4 @@ module "gatekeeper" {
 module "gatekeeper_templates" {
   source = "../../templates"
 
-  depends_on = ["module.gatekeeper.helm_release.gatekeeper"]
 }
