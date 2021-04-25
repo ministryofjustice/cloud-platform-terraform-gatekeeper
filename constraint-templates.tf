@@ -2,7 +2,7 @@
 resource "kubernetes_manifest" "unique-ingress" {
   provider = kubernetes-alpha
 
-  depends_on = [helm_release.gatekeeper]
+  depends_on = [helm_release.gatekeeper.status]
 
   manifest = {
     "apiVersion" = "templates.gatekeeper.sh/v1beta1"
