@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       localstack:
-        image: localstack/localstack:latest
+        image: localstack/localstack:0.12.10
         env:
           SERVICES: iam,sts
           DEFAULT_REGION: eu-west-2
@@ -23,7 +23,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v1
         with:
-          go-version: 1.13
+          go-version: 1.16
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
