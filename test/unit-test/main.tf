@@ -34,7 +34,7 @@ provider "aws" {
 }
 
 module "gatekeeper" {
-  source = "github.com/ministryofjustice/cloud-platform-terraform-gatekeeper"
+  source = "../../"
 
   cluster_domain_name = "gatekeeper.cloud-platform.service.justice.gov.uk"
 }
