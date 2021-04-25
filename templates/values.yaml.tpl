@@ -1,3 +1,0 @@
-postInstall:
-  labelNamespace:
-    enabled: false

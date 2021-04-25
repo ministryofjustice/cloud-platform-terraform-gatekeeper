@@ -26,8 +26,17 @@ resource "helm_release" "gatekeeper" {
   repository = "https://open-policy-agent.github.io/gatekeeper/charts"
   chart      = "gatekeeper"
   version    = "3.4.0"
+  wait       = true
 
-  values = [templatefile("${path.module}/templates/values.yaml.tpl", {})]
+  set {
+    name  = "enableDeleteOperations"
+    value = "true"
+  }
+
+  set {
+    name  = "postInstall.labelNamespace.enabled"
+    value = "false"
+  }
 
   lifecycle {
     ignore_changes = [keyring]
