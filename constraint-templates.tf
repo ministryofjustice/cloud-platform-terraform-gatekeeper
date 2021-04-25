@@ -1,8 +1,16 @@
+#ugly hack
+resource "null_resource" "delay" {
+  provisioner "local-exec" {
+    command = "sleep 10"
+  }
+  depends_on = [helm_release.gatekeeper]
+}
+
 # unique ingress
 resource "kubernetes_manifest" "unique-ingress" {
   provider = kubernetes-alpha
 
-  depends_on = [helm_release.gatekeeper]
+  depends_on = [null_resource.delay]
 
   manifest = {
     "apiVersion" = "templates.gatekeeper.sh/v1beta1"
