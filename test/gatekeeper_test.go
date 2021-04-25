@@ -9,17 +9,12 @@ import (
 func Test(t *testing.T) {
 	t.Parallel()
 
-	terraformOptionsOnce := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "./unit-test",
-		Targets: []string{"=helm_release.gatekeeper"},
-	})
-
-	terraformOptionsTwice := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "./unit-test",
 	})
 
-	defer terraform.Destroy(t, terraformOptionsTwice)
+	defer terraform.Destroy(t, terraformOptions)
 
-	terraform.InitAndApply(t, terraformOptionsOnce)
-	terraform.InitAndApply(t, terraformOptionsTwice)
+	terraform.InitAndPlan(t, terraformOptions)
+	terraform.Apply(t, terraformOptions)
 }
