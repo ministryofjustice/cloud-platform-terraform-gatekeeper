@@ -11,7 +11,7 @@ func Test(t *testing.T) {
 
 	terraformOptionsOnce := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "./unit-test",
-		Targets: []string{"helm_release.gatekeeper"},
+		Targets: []string{"helm_release.gatekeeper","kubernetes_namespace.gatekeeper"},
 	})
 	terraformOptionsTwice := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "./unit-test",
