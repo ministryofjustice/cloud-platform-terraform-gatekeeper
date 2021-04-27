@@ -34,7 +34,7 @@ resource "helm_release" "gatekeeper" {
 
   set {
     name  = "postInstall.labelNamespace.enabled"
-    value = "true"
+    value = "false"
   }
 
   lifecycle {

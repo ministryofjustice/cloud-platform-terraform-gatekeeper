@@ -7,3 +7,9 @@ variable "enable_invalid_hostname_policy" {
   default     = false
   type        = bool
 }
+
+variable "define_constraints" {
+  description = "if false, only the app is deployed, no constraints"
+  default     = false
+  type        = bool
+}
