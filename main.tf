@@ -28,7 +28,7 @@ resource "helm_release" "gatekeeper" {
   version    = "3.4.0"
 
   set {
-    name  = "enableDeleteOperations"
+    name  = "auditFromCache"
     value = "true"
   }
 
