@@ -62,6 +62,53 @@ spec:
 YAML
 }
 
+resource "kubectl_manifest" "ingress-deny-modsec-template" {
+  count = var.define_constraints == true ? 1 : 0
+  depends_on = [helm_release.gatekeeper]
+
+  yaml_body = <<YAML
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8sdenydefaultmodsec
+  annotations:
+    description: This policy denies ingresses that have kubernetes.io/ingress.class nginx annotation (using default ingress-controller) and use nginx.ingress.kubernetes.io/enable-modsecurity true.
+spec:
+  crd:
+    spec:
+      names:
+        kind: k8sdenydefaultmodsec
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8sdenydefaultmodsec
+        violation[{"msg": msg}] {
+          input.review.kind.kind == "Ingress"
+          input.review.object.metadata.annotations["kubernetes.io/ingress.class"] == "nginx"
+          input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/enable-modsecurity"] == "true"
+          msg := "mod-security is not allowed for default ingress"
+        }
+YAML
+}
+
+resource "kubectl_manifest" "ingress-deny-modsec-constraint" {
+  count = var.define_constraints == true ? 1 : 0
+  depends_on = [helm_release.gatekeeper]
+
+  yaml_body = <<YAML
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: k8sdenydefaultmodsec
+metadata:
+  name: k8sdenydefaultmodsec
+spec:
+  match:
+    kinds:
+      - apiGroups: ["extensions", "networking.k8s.io"]
+        kinds: ["Ingress"]
+YAML
+}
+
+/* add resources to sync here */
 resource "kubectl_manifest" "config-sync" {
   count = var.define_constraints == true ? 1 : 0
   depends_on = [helm_release.gatekeeper]
@@ -81,5 +128,14 @@ spec:
       - group: "networking.k8s.io"
         version: "v1beta1"
         kind: "Ingress"
+      - group: ""
+        version: "v1"
+        kind: "Namespace"
+      - group: ""
+        version: "v1"
+        kind: "Pod"
+      - group: ""
+        version: "v1"
+        kind: "Service"
 YAML
 }

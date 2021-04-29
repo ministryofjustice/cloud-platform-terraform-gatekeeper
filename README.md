@@ -4,7 +4,13 @@ Kubernetes native security policy enforcement, an upgrade of https://github.com/
 
 ## Usage
 
-See the example/ subdir for specifics
+
+See the example/ subdir for invocation syntax
+
+CAVEATS: 
+ - to generate the audit report, it seems advisable to query a cache of filtered K8s objects, rather than hit the API each time (60 sec intervals default); because of that any kind used by a constraint template must also be added to the sync config at the end of constraints.tf
+ - deleting a ConstraintTemplate that still has Constraints breaks things badly; only deleting the CRDs (which in turn removes all the constraints) unblocks again
+ - no colons (:) in the description field
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
