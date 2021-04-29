@@ -53,7 +53,7 @@ resource "kubectl_manifest" "unique-ingress-constraint" {
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: k8suniqueingresshost
 metadata:
-  name: unique-ingress-host
+  name: k8suniqueingresshost
 spec:
   match:
     kinds:
