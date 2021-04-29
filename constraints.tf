@@ -62,7 +62,7 @@ spec:
 YAML
 }
 
-resource "kubectl_manifest" "ingress-deny-modsec-template" {
+resource "kubectl_manifest" "ingress-default-modsec-template" {
   count = var.define_constraints == true ? 1 : 0
   depends_on = [helm_release.gatekeeper]
 
@@ -88,12 +88,18 @@ spec:
           input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/enable-modsecurity"] == "true"
           msg := "mod-security is not allowed for default ingress"
         }
+        violation[{"msg": msg}] {
+          input.review.kind.kind == "Ingress"
+          not input.review.object.metadata.annotations["kubernetes.io/ingress.class"] == "nginx"
+          input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/enable-modsecurity"] == "true"
+          msg := "mod-security is not allowed for default ingress"
+        }
 YAML
 }
 
-resource "kubectl_manifest" "ingress-deny-modsec-constraint" {
+resource "kubectl_manifest" "ingress-default-modsec-constraint" {
   count = var.define_constraints == true ? 1 : 0
-  depends_on = [helm_release.gatekeeper]
+  depends_on = [kubectl_manifest.ingress-default-modsec-constraint]
 
   yaml_body = <<YAML
 apiVersion: constraints.gatekeeper.sh/v1beta1
