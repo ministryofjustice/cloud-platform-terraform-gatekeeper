@@ -90,7 +90,7 @@ spec:
         }
         violation[{"msg": msg}] {
           input.review.kind.kind == "Ingress"
-          not input.review.object.metadata.annotations["kubernetes.io/ingress.class"] == "nginx"
+          not input.review.object.metadata.annotations["kubernetes.io/ingress.class"]
           input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/enable-modsecurity"] == "true"
           msg := "mod-security is not allowed for default ingress"
         }
