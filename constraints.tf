@@ -20,16 +20,13 @@ spec:
     - target: admission.k8s.gatekeeper.sh
       rego: |
         package k8suniqueingresshost
-
         identical(obj, review) {
           obj.metadata.namespace == review.object.metadata.namespace
           obj.metadata.name == review.object.metadata.name
         }
-
         same_namespace(obj, review) {
           obj.metadata.namespace == review.object.metadata.namespace
         }
-
         violation[{"msg": msg}] {
           input.review.kind.kind == "Ingress"
           re_match("^(extensions|networking.k8s.io)$", input.review.kind.group)
@@ -72,7 +69,7 @@ kind: ConstraintTemplate
 metadata:
   name: k8sdenydefaultmodsec
   annotations:
-    description: This policy denies ingresses that have kubernetes.io/ingress.class nginx annotation (using default ingress-controller) and use nginx.ingress.kubernetes.io/enable-modsecurity true.
+    description: This policy denies ingresses using default ingress-controller if they try to enable modsecurity.
 spec:
   crd:
     spec:
@@ -94,12 +91,24 @@ spec:
           input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/enable-modsecurity"] == "true"
           msg := "mod-security is not allowed for default ingress"
         }
+        violation[{"msg": msg}] {
+          input.review.kind.kind == "Ingress"
+          input.review.object.metadata.annotations["kubernetes.io/ingress.class"] == "nginx"
+          input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/modsecurity-snippet"]
+          msg := "modsecurity-snippet is not allowed for default ingress"
+        }
+        violation[{"msg": msg}] {
+          input.review.kind.kind == "Ingress"
+          not input.review.object.metadata.annotations["kubernetes.io/ingress.class"]
+          input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/modsecurity-snippet"]
+          msg := "modsecurity-snippet is not allowed for default ingress"
+        }
 YAML
 }
 
 resource "kubectl_manifest" "ingress-default-modsec-constraint" {
   count = var.define_constraints == true ? 1 : 0
-  depends_on = [kubectl_manifest.ingress-default-modsec-constraint]
+  depends_on = [kubectl_manifest.ingress-default-modsec-template]
 
   yaml_body = <<YAML
 apiVersion: constraints.gatekeeper.sh/v1beta1
@@ -114,9 +123,58 @@ spec:
 YAML
 }
 
+resource "kubectl_manifest" "pod-tolerations-template" {
+  count = var.define_constraints == true ? 1 : 0
+  depends_on = [helm_release.gatekeeper]
+
+  yaml_body = <<YAML
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8spodtolerations
+  annotations:
+    description: do not schedule any workloads on master nodes.
+spec:
+  crd:
+    spec:
+      names:
+        kind: k8spodtolerations
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8spodtolerations
+        input_containers[c] {
+            c := input.review.object.spec.containers[_]
+        }
+        input_containers[c] {
+            c := input.review.object.spec.initContainers[_]
+        }
+        violation[{"msg": msg}] {
+          c := input_containers[_]
+          msg := sprintf("WIP")
+        }
+YAML
+}
+
+resource "kubectl_manifest" "pod-tolerations-constraint" {
+  count = var.define_constraints == true ? 1 : 0
+  depends_on = [kubectl_manifest.pod-tolerations-template]
+
+  yaml_body = <<YAML
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: k8spodtolerations
+metadata:
+  name: k8spodtolerations
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+YAML
+}
+
 /* add resources to sync here */
 resource "kubectl_manifest" "config-sync" {
-  count = var.define_constraints == true ? 1 : 0
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
