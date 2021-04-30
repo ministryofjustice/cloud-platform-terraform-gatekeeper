@@ -146,6 +146,7 @@ spec:
         violation[{"msg": msg}] {
           not input.review.kind.kind == "Pod"
           msg := "WIP"
+        }
 YAML
 }
 
