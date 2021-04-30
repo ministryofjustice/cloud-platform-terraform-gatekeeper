@@ -143,10 +143,6 @@ spec:
     - target: admission.k8s.gatekeeper.sh
       rego: |
         package k8spodtolerations
-        violation[{"msg": msg}] {
-          not input.review.kind.kind == "Pod"
-          msg := "WIP"
-        }
 YAML
 }
 
