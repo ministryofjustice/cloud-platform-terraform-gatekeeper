@@ -159,6 +159,11 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: k8spodtolerations
 metadata:
   name: k8spodtolerations
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
 YAML
 }
 
