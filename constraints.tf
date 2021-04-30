@@ -143,15 +143,9 @@ spec:
     - target: admission.k8s.gatekeeper.sh
       rego: |
         package k8spodtolerations
-        input_containers[c] {
-            c := input.review.object.spec.containers[_]
-        }
-        input_containers[c] {
-            c := input.review.object.spec.initContainers[_]
-        }
         violation[{"msg": msg}] {
-          c := input_containers[_]
-          msg := sprintf("WIP")
+          not input.review.kind.kind == "Pod"
+          msg := "WIP"
         }
 YAML
 }
@@ -165,11 +159,6 @@ apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: k8spodtolerations
 metadata:
   name: k8spodtolerations
-spec:
-  match:
-    kinds:
-      - apiGroups: [""]
-        kinds: ["Pod"]
 YAML
 }
 
