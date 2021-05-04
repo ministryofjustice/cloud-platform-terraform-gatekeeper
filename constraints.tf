@@ -123,6 +123,7 @@ spec:
 YAML
 }
 
+/* This dosn't work, to be fixed in next PR
 resource "kubectl_manifest" "pod-tolerations-template" {
   count = var.define_constraints == true ? 1 : 0
   depends_on = [helm_release.gatekeeper]
@@ -149,7 +150,9 @@ spec:
         }
 YAML
 }
+*/
 
+/* This dosn't work, to be fixed in next PR 
 resource "kubectl_manifest" "pod-tolerations-constraint" {
   count = var.define_constraints == true ? 1 : 0
   depends_on = [kubectl_manifest.pod-tolerations-template]
@@ -166,6 +169,7 @@ spec:
         kinds: ["Pod"]
 YAML
 }
+*/
 
 /* add resources to sync here */
 resource "kubectl_manifest" "config-sync" {
