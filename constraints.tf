@@ -180,7 +180,7 @@ resource "kubectl_manifest" "config-sync" {
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
-apiVersion: config.gatekeeper.sh/v1beta1
+apiVersion: config.gatekeeper.sh/v1alpha1
 kind: Config
 metadata:
   name: config
