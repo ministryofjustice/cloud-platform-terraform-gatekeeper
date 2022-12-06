@@ -25,7 +25,7 @@ resource "helm_release" "gatekeeper" {
   namespace  = kubernetes_namespace.gatekeeper.id
   repository = "https://open-policy-agent.github.io/gatekeeper/charts"
   chart      = "gatekeeper"
-  version    = "3.4.0"
+  version    = "3.10.0"
 
   set {
     name  = "auditFromCache"
