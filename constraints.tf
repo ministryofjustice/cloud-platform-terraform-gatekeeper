@@ -5,7 +5,7 @@ resource "kubectl_manifest" "unique-ingress-template" {
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
-apiVersion: templates.gatekeeper.sh/v1beta1
+apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
   name: k8suniqueingresshost
@@ -47,7 +47,7 @@ resource "kubectl_manifest" "unique-ingress-constraint" {
   depends_on = [kubectl_manifest.unique-ingress-template]
 
   yaml_body = <<YAML
-apiVersion: constraints.gatekeeper.sh/v1beta1
+apiVersion: constraints.gatekeeper.sh/v1
 kind: k8suniqueingresshost
 metadata:
   name: k8suniqueingresshost
@@ -64,7 +64,7 @@ resource "kubectl_manifest" "ingress-default-modsec-template" {
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
-apiVersion: templates.gatekeeper.sh/v1beta1
+apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
   name: k8sdenydefaultmodsec
@@ -111,7 +111,7 @@ resource "kubectl_manifest" "ingress-default-modsec-constraint" {
   depends_on = [kubectl_manifest.ingress-default-modsec-template]
 
   yaml_body = <<YAML
-apiVersion: constraints.gatekeeper.sh/v1beta1
+apiVersion: constraints.gatekeeper.sh/v1
 kind: k8sdenydefaultmodsec
 metadata:
   name: k8sdenydefaultmodsec
@@ -122,6 +122,10 @@ spec:
         kinds: ["Ingress"]
 YAML
 }
+
+
+
+
 
 /* This dosn't work, to be fixed in next PR
 resource "kubectl_manifest" "pod-tolerations-template" {
@@ -176,7 +180,7 @@ resource "kubectl_manifest" "config-sync" {
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
-apiVersion: config.gatekeeper.sh/v1alpha1
+apiVersion: config.gatekeeper.sh/v1
 kind: Config
 metadata:
   name: config
@@ -185,10 +189,10 @@ spec:
   sync:
     syncOnly:
       - group: "extensions"
-        version: "v1beta1"
+        version: "v1"
         kind: "Ingress"
       - group: "networking.k8s.io"
-        version: "v1beta1"
+        version: "v11"
         kind: "Ingress"
       - group: ""
         version: "v1"
