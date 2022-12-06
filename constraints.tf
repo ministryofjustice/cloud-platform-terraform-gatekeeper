@@ -123,6 +123,62 @@ spec:
 YAML
 }
 
+resource "kubectl_manifest" "require-labels-constraint-template" {
+  count = var.define_constraints == true ? 1 : 0
+  depends_on = [helm_release.gatekeeper]
+
+  yaml_body = <<YAML
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequiredlabels
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredLabels
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          type: object
+          properties:
+            labels:
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequiredlabels
+
+        violation[{"msg": msg, "details": {"missing_labels": missing}}] {
+          provided := {label | input.review.object.metadata.labels[label]}
+          required := {label | label := input.parameters.labels[_]}
+          missing := required - provided
+          count(missing) > 0
+          msg := sprintf("you must provide labels: %v", [missing])
+        }
+YAML
+}
+
+resource "kubectl_manifest" "require-labels-constraint" {
+  count = var.define_constraints == true ? 1 : 0
+  depends_on = [kubectl_manifest.require-labels-constraint-template]
+
+  yaml_body = <<YAML
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredLabels
+metadata:
+  name: ns-must-have-gk
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Namespace"]
+  parameters:
+    labels: ["gatekeeper"]
+YAML
+}
 
 
 
@@ -192,7 +248,7 @@ spec:
         version: "v1"
         kind: "Ingress"
       - group: "networking.k8s.io"
-        version: "v11"
+        version: "v1"
         kind: "Ingress"
       - group: ""
         version: "v1"
