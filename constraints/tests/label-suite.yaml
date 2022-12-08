@@ -1,0 +1,15 @@
+kind: Suite
+apiVersion: test.gatekeeper.sh/v1alpha1
+tests:
+- name: allowed-namespaces
+  template: ../label-template.yaml
+  constraint: ../label-constraint.yaml
+  cases:
+  - name: namespace-allowed
+    object: samples/valid-namespace.yaml
+    assertions:
+    - violations: no
+  - name: namespace-disallowed
+    object: samples/invalid-namespace.yaml
+    assertions:
+    - violations: yes
