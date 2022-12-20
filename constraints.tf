@@ -185,10 +185,10 @@ spec:
   sync:
     syncOnly:
       - group: "extensions"
-        version: "v1beta1"
+        version: "v1"
         kind: "Ingress"
       - group: "networking.k8s.io"
-        version: "v1beta1"
+        version: "v1"
         kind: "Ingress"
       - group: ""
         version: "v1"
