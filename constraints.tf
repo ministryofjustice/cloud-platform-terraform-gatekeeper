@@ -76,5 +76,3 @@ spec:
 YAML
 }
 */
-
-/* add resources to sync here */
