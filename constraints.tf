@@ -5,7 +5,7 @@ resource "kubectl_manifest" "unique-ingress-template" {
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
-apiVersion: templates.gatekeeper.sh/v1beta1
+apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
   name: k8suniqueingresshost
@@ -64,7 +64,7 @@ resource "kubectl_manifest" "ingress-default-modsec-template" {
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
-apiVersion: templates.gatekeeper.sh/v1beta1
+apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
   name: k8sdenydefaultmodsec
@@ -180,15 +180,12 @@ apiVersion: config.gatekeeper.sh/v1alpha1
 kind: Config
 metadata:
   name: config
-  namespace: "gatekeeper"
+  namespace: "gatekeeper-system"
 spec:
   sync:
     syncOnly:
-      - group: "extensions"
-        version: "v1beta1"
-        kind: "Ingress"
       - group: "networking.k8s.io"
-        version: "v1beta1"
+        version: "v1"
         kind: "Ingress"
       - group: ""
         version: "v1"
@@ -201,3 +198,4 @@ spec:
         kind: "Service"
 YAML
 }
+
