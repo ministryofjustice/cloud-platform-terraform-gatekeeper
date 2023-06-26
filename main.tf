@@ -1,9 +1,9 @@
 resource "kubernetes_namespace" "gatekeeper" {
   metadata {
-    name = "gatekeeper"
+    name = "gatekeeper-system"
 
     labels = {
-      "name"                                           = "gatekeeper"
+      "name"                                           = "gatekeeper-system"
       "cloud-platform.justice.gov.uk/is-production"    = "true"
       "cloud-platform.justice.gov.uk/environment-name" = "production"
       "admission.gatekeeper.sh/ignore"                 = "no-self-managing"
@@ -25,19 +25,17 @@ resource "helm_release" "gatekeeper" {
   namespace  = kubernetes_namespace.gatekeeper.id
   repository = "https://open-policy-agent.github.io/gatekeeper/charts"
   chart      = "gatekeeper"
-  version    = "3.10.0"
+  version    = "3.12.0"
 
-  set {
-    name  = "auditFromCache"
-    value = "true"
-  }
-
-  set {
-    name  = "postInstall.labelNamespace.enabled"
-    value = "false"
-  }
+  # https://github.com/open-policy-agent/gatekeeper/blob/master/charts/gatekeeper/values.yaml
+  values = [templatefile("${path.module}/templates/values.yaml.tpl", {
+    audit_from_cache                     = "true"
+    post_install_label_namespace         = "false"
+    constraint_violations_max_to_display = 25
+  })]
 
   lifecycle {
     ignore_changes = [keyring]
   }
 }
+
