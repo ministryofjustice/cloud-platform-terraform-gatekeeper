@@ -4,8 +4,8 @@ resource "kubernetes_namespace" "gatekeeper" {
 
     labels = {
       "name"                                           = "gatekeeper-system"
-      "cloud-platform.justice.gov.uk/is-production"    = "true"
-      "cloud-platform.justice.gov.uk/environment-name" = "production"
+      "cloud-platform.justice.gov.uk/is-production"    = terraform.workspace == local.live_workspace ? "true" : "false"
+      "cloud-platform.justice.gov.uk/environment-name" = terraform.workspace == local.live_workspace ? "production" : "dev"
       "admission.gatekeeper.sh/ignore"                 = "no-self-managing"
     }
 
@@ -15,7 +15,7 @@ resource "kubernetes_namespace" "gatekeeper" {
       "cloud-platform.justice.gov.uk/owner"         = "Cloud Platform: platforms@digital.justice.gov.uk"
       "cloud-platform.justice.gov.uk/source-code"   = "https://github.com/ministryofjustice/cloud-platform-infrastructure"
       "cloud-platform.justice.gov.uk/slack-channel" = "cloud-platform"
-      "cloud-platform-out-of-hours-alert"           = "true"
+      "cloud-platform-out-of-hours-alert"           = terraform.workspace == local.live_workspace ? "true" : "false"
     }
   }
 }
@@ -32,6 +32,10 @@ resource "helm_release" "gatekeeper" {
     audit_from_cache                     = "true"
     post_install_label_namespace         = "false"
     constraint_violations_max_to_display = 25
+    controller_mem_limit                 = terraform.workspace == local.live_workspace ? "4Gi" : "1Gi"
+    controller_mem_req                   = terraform.workspace == local.live_workspace ? "1Gi" : "512Mi"
+    audit_mem_limit                      = terraform.workspace == local.live_workspace ? "4Gi" : "1Gi"
+    audit_mem_req                        = terraform.workspace == local.live_workspace ? "1Gi" : "512Mi"
   })]
 
   lifecycle {
