@@ -3,7 +3,7 @@ kind: ConstraintTemplate
 metadata:
   name: k8sservicetypeloadbalancer
   annotations:
-    description: Requires all Services with load balancers to have the correct annotation.
+    description: Requires all Services with spec.type == "LoadBalancer" to have the correct annotation in associated namespace
 spec:
   crd:
     spec:

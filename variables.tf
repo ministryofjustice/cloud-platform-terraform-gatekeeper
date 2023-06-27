@@ -8,12 +8,6 @@ variable "enable_invalid_hostname_policy" {
   type        = bool
 }
 
-variable "define_constraints" {
-  description = "if false, only the app is deployed, no constraints"
-  default     = true
-  type        = bool
-}
-
 variable "constraint_violations_max_to_display" {
   description = "the max number of violations to display per constraint"
   default     = 20
@@ -53,4 +47,11 @@ variable "audit_mem_limit" {
 variable "audit_mem_req" {
   description = "memory req for gatekeeper audit"
   type        = string
+}
+
+variable "dryrun_map" {
+  description = "run constraints in dryrun mode "
+  type = object({
+    service_type = bool
+  })
 }
