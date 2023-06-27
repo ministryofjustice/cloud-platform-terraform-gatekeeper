@@ -1,0 +1,9 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: k8sservicetypeloadbalancer
+metadata:
+  name: k8sservicetypeloadbalancer
+spec:
+  match:
+    kinds:
+      - kinds: ["Service"]
+

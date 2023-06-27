@@ -1,7 +1,18 @@
 # remember any kind used by a constraint template must also be added to the sync config at the end of this file
+resource "kubectl_manifest" "service-type-template" {
+  depends_on = [helm_release.gatekeeper]
+
+  yaml_body = file("${path.module}/resources/constraint_templates/service_type.yaml")
+}
+
+resource "kubectl_manifest" "service-type-constraint" {
+  depends_on = [kubectl_manifest.service-type-template]
+
+  yaml_body = file("${path.module}/resources/constraints/service_type.yaml")
+}
 
 resource "kubectl_manifest" "unique-ingress-template" {
-  count = var.define_constraints == true ? 1 : 0
+  count      = var.define_constraints == true ? 1 : 0
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
@@ -43,7 +54,7 @@ YAML
 }
 
 resource "kubectl_manifest" "unique-ingress-constraint" {
-  count = var.define_constraints == true ? 1 : 0
+  count      = var.define_constraints == true ? 1 : 0
   depends_on = [kubectl_manifest.unique-ingress-template]
 
   yaml_body = <<YAML
@@ -60,7 +71,7 @@ YAML
 }
 
 resource "kubectl_manifest" "ingress-default-modsec-template" {
-  count = var.define_constraints == true ? 1 : 0
+  count      = var.define_constraints == true ? 1 : 0
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
@@ -107,7 +118,7 @@ YAML
 }
 
 resource "kubectl_manifest" "ingress-default-modsec-constraint" {
-  count = var.define_constraints == true ? 1 : 0
+  count      = var.define_constraints == true ? 1 : 0
   depends_on = [kubectl_manifest.ingress-default-modsec-template]
 
   yaml_body = <<YAML
