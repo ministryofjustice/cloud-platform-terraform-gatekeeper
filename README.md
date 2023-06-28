@@ -6,9 +6,15 @@ Kubernetes allows decoupling policy decisions from the API server by means of ad
 
 ## Usage
 
-See the example/ subdir for invocation syntax
+### Adding new constraint:
+1. Create a constraint template under the `resources/constraint_templates` folder
+2. Create a constraint file under the `resources/constraints` folder
+3. Update the `constraint_map` in the local block in the `locals.tf` file
+4. Update the `dryrun_map` variable in the `variables.tf` files
+5. Update the `dryrun_map` variable in the `test/unit-test/main.tf` file
 
-CAVEATS: 
+
+### Caveats: 
  - to generate the audit report, it seems advisable to query a cache of filtered K8s objects, rather than hit the API each time (60 sec intervals default); because of that any kind used by a constraint template must also be added to the sync config at the end of constraints.tf
  - deleting a ConstraintTemplate that still has Constraints breaks things badly; only deleting the CRDs (which in turn removes all the constraints) unblocks again
  - no colons (:) in the description field
@@ -21,7 +27,7 @@ gatekeeper provides a neat [cli tool](https://open-policy-agent.github.io/gateke
 gator verify test/suite/...
 ```
 
-add new tests test data goes under their own dir `test/suite/samples/test_suite_name/` and the test suite file can be found in `test/suite/test_suite_name.yaml`, see diagram below:
+When adding new tests, test data goes under their own dir `test/suite/samples/test_suite_name/`, `case.yaml` contains config for the resource being tested, `inventory.yaml` contains config for 'mock resources', and the test suite file can be found in `test/suite/test_suite_name.yaml`, see diagram below:
 
 ```
 test/suite
@@ -72,7 +78,6 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_domain_name"></a> [cluster\_domain\_name](#input\_cluster\_domain\_name) | The cluster domain used for externalDNS annotations and certmanager | `any` | n/a | yes |
 | <a name="input_define_constraints"></a> [define\_constraints](#input\_define\_constraints) | if false, only the app is deployed, no constraints | `bool` | `true` | no |
-| <a name="input_enable_invalid_hostname_policy"></a> [enable\_invalid\_hostname\_policy](#input\_enable\_invalid\_hostname\_policy) | Enable wheter to have the OPA policy of invalid hostname enabled | `bool` | `false` | no |
 
 ## Outputs
 

@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ing-0
+  namespace: ns-0
+  annotations:
+    kubernetes.io/ingress.class: "modsec-01"
+    nginx.ingress.kubernetes.io/modsecurity-snippet: "correct"
+    cloud-platform.justice.gov.uk/ignore-external-dns-weight: "true"
+spec:
+  rules:
+    - host: ing-0.example.com
+      http:
+        paths:
+        - backend:
+            service:
+              name: helloworld
+              port:
+                name: http
+          pathType: ImplementationSpecific
