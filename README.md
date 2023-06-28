@@ -13,6 +13,29 @@ CAVEATS:
  - deleting a ConstraintTemplate that still has Constraints breaks things badly; only deleting the CRDs (which in turn removes all the constraints) unblocks again
  - no colons (:) in the description field
 
+## Testing
+
+gatekeeper provides a neat [cli tool](https://open-policy-agent.github.io/gatekeeper/website/docs/gator/) for testing. Once installed you can run the following command to verify the test suite has the expected violations:
+
+```sh
+gator verify test/suite/...
+```
+
+add new tests test data goes under their own dir `test/suite/samples/test_suite_name/` and the test suite file can be found in `test/suite/test_suite_name.yaml`, see diagram below:
+
+```
+test/suite
+├── samples/
+│   └── test_suite_name/
+│       ├── case_description_1/
+│       │   ├── case.yaml
+│       │   └── inventory.yaml
+│       └── case_description_2
+│           ├── case.yaml
+│           └── inventory.yaml
+└── test_suite_name.yaml
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
