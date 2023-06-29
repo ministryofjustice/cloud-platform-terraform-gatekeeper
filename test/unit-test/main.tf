@@ -7,8 +7,7 @@ module "gatekeeper" {
   source = "../../"
 
   cluster_domain_name                  = "gatekeeper.cloud-platform.service.justice.gov.uk"
-  enable_invalid_hostname_policy       = false
-  dryrun_map                           = { service_type = true }
+  dryrun_map                           = { service_type = true, snippet_allowlist = true }
   constraint_violations_max_to_display = 25
   is_production                        = "false"
   environment_name                     = "development"

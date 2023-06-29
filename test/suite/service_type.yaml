@@ -5,27 +5,27 @@ tests:
   template: ../../resources/constraint_templates/service_type.yaml
   constraint: ../../resources/constraints/service_type.yaml
   cases:
-  - name: allowed-cluster-ip
+  - name: allow-cluster-ip
     inventory: 
-      - samples/service_type/allowed_cluster_ip/inventory.yaml
-    object: samples/service_type/allowed_cluster_ip/case.yaml
+      - samples/service_type/allow_cluster_ip/inventory.yaml
+    object: samples/service_type/allow_cluster_ip/case.yaml
     assertions:
     - violations: no
-  - name: allowed-annotation-key-no-value
+  - name: allow-annotation-key-no-value
     inventory:
-      - samples/service_type/allowed_annotation_key_no_value/inventory.yaml
-    object: samples/service_type/allowed_annotation_key_no_value/case.yaml
+      - samples/service_type/allow_annotation_key_no_value/inventory.yaml
+    object: samples/service_type/allow_annotation_key_no_value/case.yaml
     assertions:
     - violations: no
-  - name: allowed-annotation-key
+  - name: allow-annotation-key
     inventory:
-      - samples/service_type/allowed_annotation_key/inventory.yaml
-    object: samples/service_type/allowed_annotation_key/case.yaml
+      - samples/service_type/allow_annotation_key/inventory.yaml
+    object: samples/service_type/allow_annotation_key/case.yaml
     assertions:
     - violations: no
-  - name: disallowed-no-annotation
+  - name: deny-no-annotation
     inventory:
-      - samples/service_type/disallowed_no_annotation_key/inventory.yaml
-    object: samples/service_type/disallowed_no_annotation_key/case.yaml
+      - samples/service_type/deny_no_annotation_key/inventory.yaml
+    object: samples/service_type/deny_no_annotation_key/case.yaml
     assertions:
     - violations: yes

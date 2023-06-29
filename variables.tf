@@ -2,12 +2,6 @@ variable "cluster_domain_name" {
   description = "The cluster domain used for externalDNS annotations and certmanager"
 }
 
-variable "enable_invalid_hostname_policy" {
-  description = "Enable wheter to have the OPA policy of invalid hostname enabled"
-  default     = false
-  type        = bool
-}
-
 variable "constraint_violations_max_to_display" {
   description = "the max number of violations to display per constraint"
   default     = 20
@@ -53,5 +47,6 @@ variable "dryrun_map" {
   description = "run constraints in dryrun mode "
   type = object({
     service_type = bool
+    snippet_allowlist = bool
   })
 }

@@ -1,18 +1,16 @@
 # remember any kind used by a constraint template must also be added to the sync config at the end of this file
-resource "kubectl_manifest" "service-type-template" {
+resource "kubectl_manifest" "constraint_templates" {
   depends_on = [helm_release.gatekeeper]
-
-  yaml_body = file("${path.module}/resources/constraint_templates/service_type.yaml")
+  for_each = fileset("${path.module}/resources/constraint_templates/", "*")
+  
+  yaml_body = file("${path.module}/resources/constraint_templates/${each.value}")
 }
 
-locals {
-  service_type_constraint = merge(yamldecode(file("${path.module}/resources/constraints/service_type.yaml")), { "spec" : { "enforcementAction" : var.dryrun_map.service_type ? "dryrun" : "deny" } })
-}
+resource "kubectl_manifest" "constraints" {
+  depends_on = [kubectl_manifest.constraint_templates]
+  for_each = local.constraint_map
 
-resource "kubectl_manifest" "service-type-constraint" {
-  depends_on = [kubectl_manifest.service-type-template]
-
-  yaml_body = yamlencode(local.service_type_constraint)
+  yaml_body = yamlencode("${each.value}")
 }
 
 # resource "kubectl_manifest" "unique-ingress-template" {
@@ -187,7 +185,7 @@ YAML
 */
 
 /* add resources to sync here */
-resource "kubectl_manifest" "config-sync" {
+resource "kubectl_manifest" "config_sync" {
   depends_on = [helm_release.gatekeeper]
 
   yaml_body = <<YAML
