@@ -3,7 +3,7 @@ kind: ConstraintTemplate
 metadata:
   name: k8ssnippetallowlist
   annotations:
-    description: For create and update Ingress check that none of the annotations contain forbidden values
+    description: For create and update Ingress operations, check that none of the annotations contain forbidden values
 spec:
   crd:
     spec:
