@@ -1,0 +1,29 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8spodtoleration
+  annotations:
+    description: Prevent scheduling any workload on master node except for required system services namespaces which have the correct annotations
+spec:
+  crd:
+    spec:
+      names:
+        kind: k8spodtoleration
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8spodtoleration
+
+        violation[{"msg": msg}] {
+          toleration := input.review.object.spec.tolerations
+          not toleration["key"]
+          not data.inventory.cluster["v1"].Namespace[input.review.object.metadata.namespace].metadata.annotations["cloud-platform.justice.gov.uk/can-tolerate-master-taints"]
+          msg := sprintf("Pods %v/%v have tolerations. Pods with tolerations will not be scheduled. Please get in touch with us in #ask-cloud-platform", [input.review.object.metadata.name, input.review.object.metadata.namespace])
+        }
+
+        violation[{"msg": msg}] {
+          toleration := input.review.object.spec.tolerations
+          toleration["key"] == "node-role.kubernetes.io/master"
+          not data.inventory.cluster["v1"].Namespace[input.review.object.metadata.namespace].metadata.annotations["cloud-platform.justice.gov.uk/can-tolerate-master-taints"]
+          msg := sprintf("Pods %v/%v have tolerations. Pods with tolerations will not be scheduled. Please get in touch with us in #ask-cloud-platform", [input.review.object.metadata.name, input.review.object.metadata.namespace])
+        }

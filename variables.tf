@@ -46,7 +46,8 @@ variable "audit_mem_req" {
 variable "dryrun_map" {
   description = "run constraints in dryrun mode "
   type = object({
-    service_type = bool
+    service_type      = bool
     snippet_allowlist = bool
+    pod_toleration    = bool
   })
 }

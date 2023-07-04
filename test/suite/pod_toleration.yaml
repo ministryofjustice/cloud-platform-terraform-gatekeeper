@@ -1,0 +1,50 @@
+kind: Suite
+apiVersion: test.gatekeeper.sh/v1alpha1
+tests:
+- name: pod_toleration
+  template: ../../resources/constraint_templates/pod_toleration.yaml
+  constraint: ../../resources/constraints/pod_toleration.yaml
+  cases:
+    - name: allow-with-no-tolerations
+      inventory:
+       - samples/pod_toleration/allow_pod_no_tolerations/inventory.yaml
+      object: samples/pod_toleration/allow_pod_no_tolerations/case.yaml
+      assertions:
+      - violations: no
+    - name: allow-with-toleration-key-and-annotation
+      inventory: 
+       - samples/pod_toleration/allow_annotation/inventory.yaml
+      object: samples/pod_toleration/allow_annotation/case.yaml
+      assertions:
+      - violations: no
+    - name: allow-with-toleration-key-and-no-annotation
+      inventory: 
+       - samples/pod_toleration/allow_key_no_annotation/inventory.yaml
+      object: samples/pod_toleration/allow_key_no_annotation/case.yaml
+      assertions:
+      - violations: no
+    - name: deny-on-master-node-no-annotation
+      inventory: 
+       - samples/pod_toleration/deny_master_node_no_annotation/inventory.yaml
+      object: samples/pod_toleration/deny_master_node_no_annotation/case.yaml
+      assertions:
+      - violations: yes
+    - name: allow-on-master-node
+      inventory: 
+       - samples/pod_toleration/allow_master_node/inventory.yaml
+      object: samples/pod_toleration/allow_master_node/case.yaml
+      assertions:
+      - violations: no
+    - name: deny-with-invalid-key
+      inventory: 
+       - samples/pod_toleration/deny_invalid_key/inventory.yaml
+      object: samples/pod_toleration/deny_invalid_key/case.yaml
+      assertions:
+      - violations: yes
+    - name: deny-with-null-key
+      inventory: 
+       - samples/pod_toleration/deny_no_toleration_key/inventory.yaml
+      object: samples/pod_toleration/deny_no_toleration_key/case.yaml
+      assertions:
+      - violations: yes
+

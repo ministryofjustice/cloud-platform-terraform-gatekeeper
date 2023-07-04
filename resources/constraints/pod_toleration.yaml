@@ -1,0 +1,9 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: k8spodtoleration
+metadata:
+  name: k8spodtoleration
+spec:
+  match:
+    kinds:
+      - kinds: ["Pod"]
+

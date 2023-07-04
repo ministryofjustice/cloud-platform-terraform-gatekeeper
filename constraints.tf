@@ -1,14 +1,14 @@
 # remember any kind used by a constraint template must also be added to the sync config at the end of this file
 resource "kubectl_manifest" "constraint_templates" {
   depends_on = [helm_release.gatekeeper]
-  for_each = fileset("${path.module}/resources/constraint_templates/", "*")
-  
+  for_each   = fileset("${path.module}/resources/constraint_templates/", "*")
+
   yaml_body = file("${path.module}/resources/constraint_templates/${each.value}")
 }
 
 resource "kubectl_manifest" "constraints" {
   depends_on = [kubectl_manifest.constraint_templates]
-  for_each = local.constraint_map
+  for_each   = local.constraint_map
 
   yaml_body = yamlencode("${each.value}")
 }
@@ -161,25 +161,6 @@ spec:
           not input.review.kind.kind == "Pod"
           msg := "WIP"
         }
-YAML
-}
-*/
-
-/* This dosn't work, to be fixed in next PR 
-resource "kubectl_manifest" "pod-tolerations-constraint" {
-  count = var.define_constraints == true ? 1 : 0
-  depends_on = [kubectl_manifest.pod-tolerations-template]
-
-  yaml_body = <<YAML
-apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: k8spodtolerations
-metadata:
-  name: k8spodtolerations
-spec:
-  match:
-    kinds:
-      - apiGroups: [""]
-        kinds: ["Pod"]
 YAML
 }
 */
