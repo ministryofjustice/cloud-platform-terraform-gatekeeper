@@ -3,7 +3,7 @@ module "gatekeeper" {
 
   cluster_domain_name = data.terraform_remote_state.cluster.outputs.cluster_domain_name
   # boolean expression for applying opa valid hostname for test clusters only.
-  dryrun_map                           = { service_type = true, snippet_allowlist = true, modsec_snippet_nginx_class = true, modsec_nginx_class = true, ingress_clash = true }
+  dryrun_map                           = { service_type = true, snippet_allowlist = true, modsec_snippet_nginx_class = true, modsec_nginx_class = true, ingress_clash = true, hostname_length = true }
   constraint_violations_max_to_display = 25
   is_production                        = terraform.workspace == local.production_workspace ? "true" : "false"
   environment_name                     = terraform.workspace == local.production_workspace ? "production" : "development"

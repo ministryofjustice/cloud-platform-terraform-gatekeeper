@@ -51,5 +51,6 @@ variable "dryrun_map" {
     modsec_snippet_nginx_class = bool
     modsec_nginx_class         = bool
     ingress_clash              = bool
+    hostname_length            = bool
   })
 }
