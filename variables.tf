@@ -49,5 +49,6 @@ variable "dryrun_map" {
     service_type = bool
     snippet_allowlist = bool
     modsec_snippet_nginx_class = bool
+    modsec_nginx_class = bool
   })
 }
