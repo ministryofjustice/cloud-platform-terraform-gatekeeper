@@ -1,76 +1,17 @@
 # remember any kind used by a constraint template must also be added to the sync config at the end of this file
 resource "kubectl_manifest" "constraint_templates" {
   depends_on = [helm_release.gatekeeper]
-  for_each = fileset("${path.module}/resources/constraint_templates/", "*")
-  
+  for_each   = fileset("${path.module}/resources/constraint_templates/", "*")
+
   yaml_body = file("${path.module}/resources/constraint_templates/${each.value}")
 }
 
 resource "kubectl_manifest" "constraints" {
   depends_on = [kubectl_manifest.constraint_templates]
-  for_each = local.constraint_map
+  for_each   = local.constraint_map
 
   yaml_body = yamlencode("${each.value}")
 }
-
-# resource "kubectl_manifest" "unique-ingress-template" {
-#   count      = var.define_constraints == true ? 1 : 0
-#   depends_on = [helm_release.gatekeeper]
-
-#   yaml_body = <<YAML
-# apiVersion: templates.gatekeeper.sh/v1
-# kind: ConstraintTemplate
-# metadata:
-#   name: k8suniqueingresshost
-#   annotations:
-#     description: Requires all Ingress hosts to be unique, unless they share a namespace.
-# spec:
-#   crd:
-#     spec:
-#       names:
-#         kind: k8suniqueingresshost
-#   targets:
-#     - target: admission.k8s.gatekeeper.sh
-#       rego: |
-#         package k8suniqueingresshost
-#         identical(obj, review) {
-#           obj.metadata.namespace == review.object.metadata.namespace
-#           obj.metadata.name == review.object.metadata.name
-#         }
-#         same_namespace(obj, review) {
-#           obj.metadata.namespace == review.object.metadata.namespace
-#         }
-#         violation[{"msg": msg}] {
-#           input.review.kind.kind == "Ingress"
-#           re_match("^(extensions|networking.k8s.io)$", input.review.kind.group)
-#           host := input.review.object.spec.rules[_].host
-#           other := data.inventory.namespace[ns][otherapiversion]["Ingress"][name]
-#           re_match("^(extensions|networking.k8s.io)/.+$", otherapiversion)
-#           other.spec.rules[_].host == host
-#           namespace := other.metadata.namespace
-#           not identical(other, input.review)
-#           not same_namespace(other, input.review)
-#           msg := sprintf("ingress host conflicts with an existing ingress <%v> in namespace <%v>", [host, namespace])
-#         }
-# YAML
-# }
-
-# resource "kubectl_manifest" "unique-ingress-constraint" {
-#   count      = var.define_constraints == true ? 1 : 0
-#   depends_on = [kubectl_manifest.unique-ingress-template]
-
-#   yaml_body = <<YAML
-# apiVersion: constraints.gatekeeper.sh/v1beta1
-# kind: k8suniqueingresshost
-# metadata:
-#   name: k8suniqueingresshost
-# spec:
-#   match:
-#     kinds:
-#       - apiGroups: ["extensions", "networking.k8s.io"]
-#         kinds: ["Ingress"]
-# YAML
-# }
 
 # resource "kubectl_manifest" "ingress-default-modsec-template" {
 #   count      = var.define_constraints == true ? 1 : 0
@@ -135,54 +76,6 @@ resource "kubectl_manifest" "constraints" {
 #         kinds: ["Ingress"]
 # YAML
 # }
-
-/* This dosn't work, to be fixed in next PR
-resource "kubectl_manifest" "pod-tolerations-template" {
-  count = var.define_constraints == true ? 1 : 0
-  depends_on = [helm_release.gatekeeper]
-
-  yaml_body = <<YAML
-apiVersion: templates.gatekeeper.sh/v1beta1
-kind: ConstraintTemplate
-metadata:
-  name: k8spodtolerations
-  annotations:
-    description: do not schedule any workloads on master nodes.
-spec:
-  crd:
-    spec:
-      names:
-        kind: k8spodtolerations
-  targets:
-    - target: admission.k8s.gatekeeper.sh
-      rego: |
-        package k8spodtolerations
-        violation[{"msg": msg}] {
-          not input.review.kind.kind == "Pod"
-          msg := "WIP"
-        }
-YAML
-}
-*/
-
-/* This dosn't work, to be fixed in next PR 
-resource "kubectl_manifest" "pod-tolerations-constraint" {
-  count = var.define_constraints == true ? 1 : 0
-  depends_on = [kubectl_manifest.pod-tolerations-template]
-
-  yaml_body = <<YAML
-apiVersion: constraints.gatekeeper.sh/v1beta1
-kind: k8spodtolerations
-metadata:
-  name: k8spodtolerations
-spec:
-  match:
-    kinds:
-      - apiGroups: [""]
-        kinds: ["Pod"]
-YAML
-}
-*/
 
 /* add resources to sync here */
 resource "kubectl_manifest" "config_sync" {

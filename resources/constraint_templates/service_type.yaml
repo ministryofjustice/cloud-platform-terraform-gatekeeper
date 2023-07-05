@@ -3,6 +3,7 @@ kind: ConstraintTemplate
 metadata:
   name: k8sservicetypeloadbalancer
   annotations:
+    metadata.gatekeeper.sh/title: "Enforce LoadBalancer creation"
     description: Requires all Services with spec.type == "LoadBalancer" to have the correct annotation in the associated namespace
 spec:
   crd:

@@ -3,6 +3,7 @@ kind: ConstraintTemplate
 metadata:
   name: k8ssnippetallowlist
   annotations:
+    metadata.gatekeeper.sh/title: "Check Snippets for forbidden values"
     description: For create and update Ingress operations, check that none of the annotations contain forbidden values
 spec:
   crd:
