@@ -12,6 +12,7 @@ Kubernetes allows decoupling policy decisions from the API server by means of ad
 3. Update the `constraint_map` in the local block in the `locals.tf` file
 4. Update the `dryrun_map` variable in the `variables.tf` files
 5. Update the `dryrun_map` variable in the `test/unit-test/main.tf` file
+6. Update the `dryrun_map` variable in the `example/main.tf` file 
 
 
 ### Caveats: 
