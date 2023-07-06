@@ -17,4 +17,5 @@ audit:
       requests:
         cpu: 100m
         memory: ${audit_mem_req}
-
+controllerManager:
+  exemptNamespaces: ["kube-system"]
