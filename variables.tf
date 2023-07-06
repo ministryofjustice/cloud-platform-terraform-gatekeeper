@@ -43,6 +43,12 @@ variable "audit_mem_req" {
   type        = string
 }
 
+variable "cluster_color" {
+  description = "Cluster color. This variable is effective only when external_dns_weight is not in dryrun"
+  default     = "black"
+  type        = string
+}
+
 variable "dryrun_map" {
   description = "run constraints in dryrun mode "
   type = object({
@@ -52,5 +58,7 @@ variable "dryrun_map" {
     modsec_nginx_class         = bool
     ingress_clash              = bool
     hostname_length            = bool
+    external_dns_identifier    = bool
   })
 }
+
