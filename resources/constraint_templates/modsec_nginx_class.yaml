@@ -3,6 +3,7 @@ kind: ConstraintTemplate
 metadata:
   name: k8smodsecnginxclass
   annotations:
+    metadata.gatekeeper.sh/title: Modsec NGINX class
     description: This policy denies any ingress that has an ingress class of "nginx" or "default" and uses the "nginx.ingress.kubernetes.io/enable-modsecurity" annotation
 spec:
   crd:
