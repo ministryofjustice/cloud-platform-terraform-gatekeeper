@@ -1,0 +1,41 @@
+kind: Suite
+apiVersion: test.gatekeeper.sh/v1alpha1
+tests:
+- name: external_dns_identifier
+  template: ../../resources/constraint_templates/ingress_external_dns_identifier.yaml
+  constraint: ../../resources/constraints/ingress_external_dns_identifier.yaml
+  cases:
+  - name: allow-external-dns-identifier
+    object: samples/external_dns_identifier/allow_identifier/case.yaml
+    assertions:
+    - violations: no
+  - name: allow-ignore-no-identifier
+    object: samples/external_dns_identifier/allow_ignore_no_identifier/case.yaml
+    assertions:
+    - violations: no
+  - name: allow-ignore
+    object: samples/external_dns_identifier/allow_ignore/case.yaml
+    assertions:
+    - violations: no
+  - name: deny-false-ignore
+    object: samples/external_dns_identifier/deny_false_ignore/case.yaml
+    assertions:
+    - violations: yes
+  - name: deny-no-annotations
+    object: samples/external_dns_identifier/deny_no_annotations/case.yaml
+    assertions:
+    - violations: yes
+  - name: deny-invalid-identifier
+    object: samples/external_dns_identifier/deny_invalid_identifier/case.yaml
+    assertions:
+    - violations: yes
+
+- name: external_dns_identifier_green
+  template: ../../resources/constraint_templates/ingress_external_dns_identifier.yaml
+  constraint: samples/external_dns_identifier/constraint.yaml
+  cases:
+  - name: allow-external-dns-identifier
+    object: samples/external_dns_identifier/allow_green/case.yaml
+    assertions:
+    - violations: no
+
