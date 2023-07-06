@@ -3,8 +3,8 @@ kind: ConstraintTemplate
 metadata:
   name: k8sexternaldnsidentifier
   annotations:
-    metadata.gatekeeper.sh/title: 
-    description: 
+    metadata.gatekeeper.sh/title: External DNS Identifier
+    description: This constraint checks that the set-identifier annotation follows the pattern <ingress-name>-<ns>-<cluster-colour>
 spec:
   crd:
     spec:

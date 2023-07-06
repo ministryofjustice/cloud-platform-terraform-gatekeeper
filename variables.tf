@@ -59,6 +59,7 @@ variable "dryrun_map" {
     ingress_clash              = bool
     hostname_length            = bool
     external_dns_identifier    = bool
+    external_dns_weight = bool
   })
 }
 

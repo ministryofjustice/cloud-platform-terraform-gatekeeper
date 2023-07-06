@@ -3,6 +3,7 @@ kind: ConstraintTemplate
 metadata:
   name: k8singressclash
   annotations:
+    metadata.gatekeeper.sh/title: Prevent conflicting hosts
     description: Prevent use of conflicting hosts in Ingress resources
 spec:
   crd:
