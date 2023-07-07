@@ -6,14 +6,14 @@ request:  # Fully-qualified group/version/kind of the incoming object
     version: v1
     kind: Ingress
 
-  operation: "CREATE"
+  operation: "DELETE"
   # Name of the resource being modified
   name: ing-0
 
   # Namespace of the resource being modified, if the resource is namespaced (or is a Namespace object)
   namespace: default-0
 
-  object:
+  oldObject:
     apiVersion: networking.k8s.io/v1
     kind: Ingress
     metadata:
@@ -21,10 +21,10 @@ request:  # Fully-qualified group/version/kind of the incoming object
       namespace: ns-0
       annotations:
         kubernetes.io/ingress.class: "nginx"
-        nginx.ingress.kubernetes.io/auth-snippet: "nice"
-        nginx.ingress.kubernetes.io/configuration-snippet: "nice"
-        nginx.ingress.kubernetes.io/server-snippet: "nice"
-        nginx.ingress.kubernetes.io/modsecurity-snippet: "nice"
+        nginx.ingress.kubernetes.io/auth-snippet: kubernetes.io
+        nginx.ingress.kubernetes.io/configuration-snippet: kubernetes.io
+        nginx.ingress.kubernetes.io/server-snippet: kubernetes.io
+        nginx.ingress.kubernetes.io/modsecurity-snippet: kubernetes.io
         cloud-platform.justice.gov.uk/ignore-external-dns-weight: "true"
     spec:
       rules:
@@ -37,4 +37,5 @@ request:  # Fully-qualified group/version/kind of the incoming object
                   port:
                     name: http
               pathType: ImplementationSpecific
+
 

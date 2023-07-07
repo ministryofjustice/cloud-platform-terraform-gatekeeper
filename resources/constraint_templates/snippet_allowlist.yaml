@@ -15,7 +15,7 @@ spec:
       rego: |
         package k8ssnippetallowlist
 
-        operations = {"CREATE", "UPDATE", ""}
+        operations = {"CREATE", "UPDATE"}
 
         forbidden_value := "\\blua_|_lua\\b|_lua_|\\bkubernetes\\.io\\b|root|load_module"
 

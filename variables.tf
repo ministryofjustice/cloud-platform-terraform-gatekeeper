@@ -2,6 +2,11 @@ variable "cluster_domain_name" {
   description = "The cluster domain used for externalDNS annotations and certmanager"
 }
 
+variable "integration_test_zone" {
+  description = "Integration test zone, for test clusters to use it for valid ingress policy"
+  default     = ""
+}
+
 variable "constraint_violations_max_to_display" {
   description = "the max number of violations to display per constraint"
   default     = 20
@@ -59,7 +64,8 @@ variable "dryrun_map" {
     ingress_clash              = bool
     hostname_length            = bool
     external_dns_identifier    = bool
-    external_dns_weight = bool
+    external_dns_weight        = bool
+    valid_hostname             = bool
   })
 }
 
