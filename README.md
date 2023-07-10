@@ -18,7 +18,7 @@ Kubernetes allows decoupling policy decisions from the API server by means of ad
 ### Configuring constraints
 
 The constraint template design allows you to define a template and then instantiate different constraints from that template.
-Constraints are felxible and can take input variables, the best way to configure these parameters from terraform values is through `locals.tf`.
+Constraints are flexible and can take input variables, the best way to configure these parameters from terraform values is through `locals.tf`.
 In `locals.tf` we read the constraint from yaml and convert it to json so you can change values and add new keys easily. We convert this back into yaml for terraform to apply as a k8s manifest.
 
 ### Caveats: 
