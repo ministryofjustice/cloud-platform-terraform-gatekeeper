@@ -10,6 +10,7 @@ controllerManager:
       requests:
         cpu: 100m
         memory: ${controller_mem_req}
+  exemptNamespaces: ["kube-system"]
 audit:
   resources:
       limits:
@@ -17,5 +18,3 @@ audit:
       requests:
         cpu: 100m
         memory: ${audit_mem_req}
-controllerManager:
-  exemptNamespaces: ["kube-system"]
