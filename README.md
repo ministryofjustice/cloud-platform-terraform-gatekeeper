@@ -6,7 +6,8 @@ Kubernetes allows decoupling policy decisions from the API server by means of ad
 
 ## Usage
 
-### Adding new constraint:
+### Adding a new constraint:
+
 1. Create a constraint template under the `resources/constraint_templates` folder
 2. Create a constraint file under the `resources/constraints` folder
 3. Update the `constraint_map` in the local block in the `locals.tf` file
@@ -14,8 +15,14 @@ Kubernetes allows decoupling policy decisions from the API server by means of ad
 5. Update the `dryrun_map` variable in the `test/unit-test/main.tf` file
 6. Update the `dryrun_map` variable in the `example/main.tf` file 
 
+### Configuring constraints
+
+The constraint template design allows you to define a template and then instantiate different constraints from that template.
+Constraints are flexible and can take input variables, the best way to configure these parameters from terraform values is through `locals.tf`.
+In `locals.tf` we read the constraint from yaml and convert it to json so you can change values and add new keys easily. We convert this back into yaml for terraform to apply as a k8s manifest.
 
 ### Caveats: 
+
  - to generate the audit report, it seems advisable to query a cache of filtered K8s objects, rather than hit the API each time (60 sec intervals default); because of that any kind used by a constraint template must also be added to the sync config at the end of constraints.tf
  - deleting a ConstraintTemplate that still has Constraints breaks things badly; only deleting the CRDs (which in turn removes all the constraints) unblocks again
  - no colons (:) in the description field

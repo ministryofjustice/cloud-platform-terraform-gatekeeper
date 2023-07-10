@@ -18,20 +18,17 @@ request:  # Fully-qualified group/version/kind of the incoming object
     kind: Ingress
     metadata:
       name: ing-0
-      namespace: ns-0
-      annotations:
-        kubernetes.io/ingress.class: "modsec-01"
-        nginx.ingress.kubernetes.io/modsecurity-snippet: "kubernetes.io"
-        cloud-platform.justice.gov.uk/ignore-external-dns-weight: "true"
+      namespace: default-0
     spec:
       rules:
-        - host: ing-0.example.com
-          http:
-            paths:
-            - backend:
-                service:
-                  name: helloworld
-                  port:
-                    name: http
-              pathType: ImplementationSpecific
+      - host: ing-1.example.com
+        http:
+          paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: nginx
+                port:
+                  number: 80
 
