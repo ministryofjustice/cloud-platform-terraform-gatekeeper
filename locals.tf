@@ -8,7 +8,7 @@ locals {
     ingress_clash              = merge(yamldecode(file("${path.module}/resources/constraints/ingress_clash.yaml")), { "spec" : { "enforcementAction" : var.dryrun_map.ingress_clash ? "dryrun" : "deny" } })
     hostname_length            = merge(yamldecode(file("${path.module}/resources/constraints/ingress_hostname_length.yaml")), { "spec" : { "enforcementAction" : var.dryrun_map.hostname_length ? "dryrun" : "deny" } })
     external_dns_weight        = merge(yamldecode(file("${path.module}/resources/constraints/ingress_external_dns_weight.yaml")), { "spec" : { "enforcementAction" : var.dryrun_map.external_dns_weight ? "dryrun" : "deny" } })
-    external_dns_identifier    = merge(yamldecode(file("${path.module}/resources/constraints/ingress_external_dns_identifier.yaml")), { "spec" : { "enforcementAction" : var.dryrun_map.external_dns_identifier ? "dryrun" : "deny", "parameters" : { "cluster_color" : var.cluster_color } } })
+    external_dns_identifier    = merge(yamldecode(file("${path.module}/resources/constraints/ingress_external_dns_identifier.yaml")), { "spec" : { "enforcementAction" : var.dryrun_map.external_dns_identifier ? "dryrun" : "deny", "parameters" : { "clusterColor" : var.cluster_color } } })
     valid_hostname             = merge(yamldecode(file("${path.module}/resources/constraints/ingress_valid_hostname.yaml")), { "spec" : { "enforcementAction" : var.dryrun_map.valid_hostname ? "dryrun" : "deny", "parameters" : { "validDomainNames" : "*.${var.cluster_domain_name},*.${var.integration_test_zone}" } } })
   }
 }
