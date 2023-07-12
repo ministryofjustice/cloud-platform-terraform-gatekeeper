@@ -1,13 +1,12 @@
 # remember any kind used by a constraint template must also be added to the sync config at the end of this file
 resource "kubectl_manifest" "constraint_templates" {
-  depends_on = [helm_release.gatekeeper]
-  for_each   = fileset("${path.module}/resources/constraint_templates/", "*")
+  for_each = fileset("${path.module}/resources/constraint_templates/", "*")
 
   yaml_body = file("${path.module}/resources/constraint_templates/${each.value}")
 }
 
 resource "kubectl_manifest" "constraints" {
-  depends_on = [kubectl_manifest.constraint_templates]
+  depends_on = [kubectl_manifest.constraint_templates, helm_release.gatekeeper]
   for_each   = local.constraint_map
 
   yaml_body = yamlencode("${each.value}")
