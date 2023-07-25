@@ -7,7 +7,7 @@ module "gatekeeper" {
   source = "../../"
 
   cluster_domain_name                  = "gatekeeper.cloud-platform.service.justice.gov.uk"
-  dryrun_map                           = { service_type = true, snippet_allowlist = true, modsec_snippet_nginx_class = true, modsec_nginx_class = true, ingress_clash = true, hostname_length = true, external_dns_identifier = true, external_dns_weight = true, valid_hostname = true }
+  dryrun_map                           = { service_type = true, snippet_allowlist = true, modsec_snippet_nginx_class = true, modsec_nginx_class = true, ingress_clash = true, hostname_length = true, external_dns_identifier = true, external_dns_weight = true, valid_hostname = true, warn_service_account_secret_delete = true }
   cluster_color                        = "green"
   constraint_violations_max_to_display = 25
   is_production                        = "false"

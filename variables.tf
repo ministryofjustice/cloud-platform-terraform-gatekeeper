@@ -57,15 +57,16 @@ variable "cluster_color" {
 variable "dryrun_map" {
   description = "run constraints in dryrun mode "
   type = object({
-    service_type               = bool
-    snippet_allowlist          = bool
-    modsec_snippet_nginx_class = bool
-    modsec_nginx_class         = bool
-    ingress_clash              = bool
-    hostname_length            = bool
-    external_dns_identifier    = bool
-    external_dns_weight        = bool
-    valid_hostname             = bool
+    service_type                        = bool
+    snippet_allowlist                   = bool
+    modsec_snippet_nginx_class          = bool
+    modsec_nginx_class                  = bool
+    ingress_clash                       = bool
+    hostname_length                     = bool
+    external_dns_identifier             = bool
+    external_dns_weight                 = bool
+    valid_hostname                      = bool
+    warn_service_account_secret_delete  = bool
   })
 }
 
