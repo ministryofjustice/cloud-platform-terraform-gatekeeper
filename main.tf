@@ -27,6 +27,10 @@ resource "null_resource" "kube_system_ns_label" {
   }
 }
 
+module "constraint_templates" {
+  source = "./constraint_templates"
+}
+
 resource "helm_release" "gatekeeper" {
   name       = "gatekeeper"
   namespace  = kubernetes_namespace.gatekeeper.id
@@ -48,5 +52,46 @@ resource "helm_release" "gatekeeper" {
   lifecycle {
     ignore_changes = [keyring]
   }
+
+  depends_on = [module.constraint_templates]
+}
+
+module "constraints" {
+  source = "./constraints"
+
+  dryrun_map            = var.dryrun_map
+  cluster_color         = var.cluster_color
+  cluster_domain_name   = var.cluster_domain_name
+  integration_test_zone = var.integration_test_zone
+
+  depends_on = [helm_release.gatekeeper, module.constraint_templates]
+}
+
+/* add resources to sync here */
+resource "kubectl_manifest" "config_sync" {
+  depends_on = [helm_release.gatekeeper]
+
+  yaml_body = <<YAML
+apiVersion: config.gatekeeper.sh/v1alpha1
+kind: Config
+metadata:
+  name: config
+  namespace: "gatekeeper-system"
+spec:
+  sync:
+    syncOnly:
+      - group: "networking.k8s.io"
+        version: "v1"
+        kind: "Ingress"
+      - group: ""
+        version: "v1"
+        kind: "Namespace"
+      - group: ""
+        version: "v1"
+        kind: "Pod"
+      - group: ""
+        version: "v1"
+        kind: "Service"
+YAML
 }
 
