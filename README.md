@@ -6,20 +6,23 @@ Kubernetes allows decoupling policy decisions from the API server by means of ad
 
 ## Usage
 
+The order which resources are created are important, to control resource creation order `constraint_templates` and `constraints` are broken into sub-modules.
+A downside of this approach, is that you have to pass variables twice, once into the parent module and then again to the constraints module. However the benefits are that we can easily create constraints and templates with terraform loops and control resource creation order.
+
 ### Adding a new constraint:
 
 1. Create a constraint template under the `resources/constraint_templates` folder
 2. Create a constraint file under the `resources/constraints` folder
-3. Update the `constraint_map` in the local block in the `locals.tf` file
-4. Update the `dryrun_map` variable in the `variables.tf` files
+3. Update the `constraint_map` in the local block in the `constraints/locals.tf` file
+4. Update the `dryrun_map` variable in the `variables.tf` and `constraints/variables.tf` files
 5. Update the `dryrun_map` variable in the `test/unit-test/main.tf` file
 6. Update the `dryrun_map` variable in the `example/main.tf` file 
 
 ### Configuring constraints
 
 The constraint template design allows you to define a template and then instantiate different constraints from that template.
-Constraints are flexible and can take input variables, the best way to configure these parameters from terraform values is through `locals.tf`.
-In `locals.tf` we read the constraint from yaml and convert it to json so you can change values and add new keys easily. We convert this back into yaml for terraform to apply as a k8s manifest.
+Constraints are flexible and can take input variables, the best way to configure these parameters from terraform values is through `constraints/locals.tf`.
+In `constraints/locals.tf` we read the constraint from yaml and convert it to json so you can change values and add new keys easily. We convert this back into yaml for terraform to apply as a k8s manifest.
 
 ### Caveats: 
 
