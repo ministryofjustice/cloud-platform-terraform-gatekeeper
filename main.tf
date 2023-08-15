@@ -62,9 +62,9 @@ module "constraint_templates" {
   depends_on = [time_sleep.wait_30_seconds]
 }
 
-resource "time_sleep" "wait_5_seconds_for_templates" {
-  create_duration  = "5s"
-  destroy_duration = "5s"
+resource "time_sleep" "wait_30_seconds_for_templates" {
+  create_duration  = "30s"
+  destroy_duration = "30s"
 
   depends_on = [module.constraint_templates]
 }
@@ -78,7 +78,7 @@ module "constraints" {
   cluster_domain_name   = var.cluster_domain_name
   integration_test_zone = var.integration_test_zone
 
-  depends_on = [time_sleep.wait_5_seconds_for_templates]
+  depends_on = [time_sleep.wait_30_seconds_for_templates]
 }
 
 /* add resources to sync here */
