@@ -29,6 +29,7 @@ resource "null_resource" "kube_system_ns_label" {
 
 module "constraint_templates" {
   source = "./constraint_templates"
+
 }
 
 resource "helm_release" "gatekeeper" {
@@ -56,6 +57,14 @@ resource "helm_release" "gatekeeper" {
   depends_on = [module.constraint_templates]
 }
 
+resource "time_sleep" "wait_5_seconds" {
+  create_duration  = "5s"
+  destroy_duration = "5s"
+
+  depends_on = [helm_release.gatekeeper]
+}
+
+
 module "constraints" {
   source = "./constraints"
 
@@ -64,7 +73,7 @@ module "constraints" {
   cluster_domain_name   = var.cluster_domain_name
   integration_test_zone = var.integration_test_zone
 
-  depends_on = [helm_release.gatekeeper, module.constraint_templates]
+  depends_on = [time_sleep.wait_5_seconds]
 }
 
 /* add resources to sync here */
