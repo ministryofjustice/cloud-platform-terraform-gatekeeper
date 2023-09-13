@@ -5,10 +5,10 @@ metadata:
 spec:
   match:
     scope: Namespaced
-    name: starter-pack-*
     kinds:
     - apiGroups: ["*"]
       kinds: ["Pod"]
+    namespaces: ["starter-pack-*"]
   location: "metadata.annotations.owner"
   parameters:
     assign:
