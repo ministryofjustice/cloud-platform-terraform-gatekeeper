@@ -9,7 +9,7 @@ spec:
     kinds:
     - apiGroups: ["*"]
       kinds: ["Pod"]
-  location: "metadata.annotations.owner-test"
+  location: "metadata.annotations.owner"
   parameters:
     assign:
       value:  "jasky"
