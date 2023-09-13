@@ -21,7 +21,7 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.containers[name:*].securityContext.privileged"
+  location: "spec.containers[name:*].securityContext.allowPrivilegeEscalation"
   parameters:
     assign:
       value:  false

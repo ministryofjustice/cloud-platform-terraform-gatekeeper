@@ -21,7 +21,7 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: '"metadata.annotations.seccomp.security.alpha.kubernetes.io/allowedProfileNames"'
+  location: 'metadata.annotations."seccomp.security.alpha.kubernetes.io/allowedProfileNames"'
   parameters:
     assign:
       value:  "docker/default,runtime/default"

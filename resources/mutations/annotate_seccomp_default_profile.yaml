@@ -22,7 +22,7 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: '"metadata.annotations.seccomp.security.alpha.kubernetes.io/defaultProfileName"'
+  location: 'metadata.annotations."seccomp.security.alpha.kubernetes.io/defaultProfileName"'
   parameters:
     assign:
       value:  "runtime/default"
