@@ -1,0 +1,15 @@
+apiVersion: mutations.gatekeeper.sh/v1
+kind: AssignMetadata
+metadata:
+  name: deny-privilege-escalation
+spec:
+  match:
+    scope: Namespaced
+    name: starter-pack-*
+    kinds:
+    - apiGroups: ["*"]
+      kinds: ["Pod"]
+  location: "metadata.annotations.owner-test"
+  parameters:
+    assign:
+      value:  "jasky"

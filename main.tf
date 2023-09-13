@@ -81,6 +81,11 @@ module "constraints" {
   depends_on = [time_sleep.wait_30_seconds_for_templates]
 }
 
+module "mutations" {
+  source     = "./mutations"
+  depends_on = [time_sleep.wait_30_seconds]
+}
+
 /* add resources to sync here */
 resource "kubectl_manifest" "config_sync" {
   depends_on = [helm_release.gatekeeper]
