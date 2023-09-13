@@ -8,8 +8,20 @@ spec:
     kinds:
     - apiGroups: ["*"]
       kinds: ["Pod"]
-    namespaces: ["starter-pack-*"]
-  location: "metadata.annotations.owner"
+    excludedNamespaces: [
+      "calico-apiserver",
+      "calico-system",
+      "cert-manager",
+      "gatekeeper-system",
+      "ingress-controllers",
+      "kube-system",
+      "kuberos",
+      "logging",
+      "monitoring",
+      "tigera-operator",
+      "trivy-system"
+      ]
+  location: "spec.containers[name:foo].securityContext.privileged"
   parameters:
     assign:
-      value:  "jasky"
+      value:  false
