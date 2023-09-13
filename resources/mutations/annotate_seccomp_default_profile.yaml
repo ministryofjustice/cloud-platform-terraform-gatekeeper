@@ -24,6 +24,9 @@ spec:
       ]
   location: 'metadata.annotations."seccomp.security.alpha.kubernetes.io/defaultProfileName"'
   parameters:
+    pathTests:
+    - subPath: 'metadata.annotations."seccomp.security.alpha.kubernetes.io/defaultProfileName"'
+      condition: MustNotExist
     assign:
       value:  "runtime/default"
 
