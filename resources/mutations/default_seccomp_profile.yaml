@@ -1,0 +1,32 @@
+apiVersion: mutations.gatekeeper.sh/v1
+kind: Assign
+metadata:
+  name: default-seccomp-profile
+spec:
+  applyTo:
+  - groups: [""]
+    kinds: ["Pod"]
+    versions: ["v1"]
+  match:
+    scope: Namespaced
+    kinds:
+    - apiGroups: ["*"]
+      kinds: ["Pod"]
+    excludedNamespaces: [
+      "calico-apiserver",
+      "calico-system",
+      "cert-manager",
+      "gatekeeper-system",
+      "ingress-controllers",
+      "kube-system",
+      "kuberos",
+      "logging",
+      "monitoring",
+      "tigera-operator",
+      "trivy-system"
+      ]
+  location: "spec.securityContext.seccompProfile.type"
+  parameters:
+    assign: 
+      value: "RuntimeDefault"
+
