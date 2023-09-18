@@ -5,8 +5,11 @@ metadata:
   name: nginx
 spec:
   containers:
-    - image: nginxinc/nginx-unprivileged:latest
+    - image: nginx:latest
       name: nginx
       ports:
         - containerPort: 80
+      securityContext:
+        allowPrivilegeEscalation: true
+        runAsUser: 0
 
