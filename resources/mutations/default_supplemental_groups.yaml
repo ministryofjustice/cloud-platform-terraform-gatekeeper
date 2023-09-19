@@ -25,12 +25,13 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.securityContext.supplementalGroups"
+  location: "spec.securityContext"
   pathTests:
   - subPath: "spec.securityContext.supplementalGroups"
     condition: MustNotExist
   parameters:
     assign:
+      name: supplementalGroups
       value: 
         - 1
 

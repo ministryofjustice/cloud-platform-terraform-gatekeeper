@@ -25,11 +25,12 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.securityContext.fsGroup"
+  location: "spec.securityContext"
   parameters:
     pathTests:
     - subPath: "spec.securityContext.fsGroup"
       condition: MustNotExist
     assign:
+      name: fsGroup
       value: 1
 
