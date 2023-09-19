@@ -27,9 +27,6 @@ spec:
       ]
   location: "spec.containers[name:*].securityContext.capabilities.drop"
   parameters:
-    # pathTests:
-    # - subPath: "spec.containers[name:*].securityContext.capabilities.drop"
-    #   condition: MustNotExist
     assign:
       value:
         - "ALL"
