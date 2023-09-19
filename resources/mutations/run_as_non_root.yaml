@@ -25,12 +25,11 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.containers[name:*].securityContext"
+  location: "spec.containers[name:*].securityContext.runAsNonRoot"
   pathTests:
-  - subPath: "runAsNonRoot"
+  - subPath: "spec.containers[name:*].securityContext.runAsNonRoot"
     condition: MustNotExist
   parameters:
     assign:
-      value:
-        runAsNonRoot: true
+      value: true
 
