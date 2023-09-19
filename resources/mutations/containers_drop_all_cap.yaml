@@ -25,7 +25,7 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.containers[name:*].securityContext.capabilities"
+  location: "spec.containers[name:*].securityContext.capabilities.drop"
   parameters:
     pathTests:
     - subPath: "spec.containers[name:*].securityContext.capabilities.drop"
