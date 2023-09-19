@@ -1,7 +1,7 @@
 apiVersion: mutations.gatekeeper.sh/v1
 kind: Assign
 metadata:
-  name: default-fs-group
+  name: pod-deny-privilege-escalation
 spec:
   applyTo:
   - groups: [""]
@@ -25,11 +25,12 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.securityContext.fsGroup"
+  location: "spec.securityContext.allowPrivilegeEscalation"
   parameters:
     pathTests:
-    - subPath: "spec.securityContext.fsGroup"
+    - subPath: "spec.securityContext.allowPrivilegeEscalation"
       condition: MustNotExist
     assign:
-      value: 1
+      value: false
+
 
