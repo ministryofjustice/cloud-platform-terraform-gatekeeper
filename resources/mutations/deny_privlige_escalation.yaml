@@ -31,4 +31,6 @@ spec:
     condition: MustNotExist
   parameters:
     assign:
-      allowPrivilegeEscalation:  false
+      name: allowPrivilegeEscalation
+      value:  false
+
