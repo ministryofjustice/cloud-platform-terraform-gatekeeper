@@ -26,10 +26,10 @@ spec:
       "trivy-system"
       ]
   location: "spec.containers[name:*].securityContext.runAsNonRoot"
-  pathTests:
-  - subPath: "spec.containers[name:*].securityContext.runAsNonRoot"
-    condition: MustNotExist
   parameters:
+    pathTests:
+    - subPath: "spec.containers[name:*].securityContext.runAsNonRoot"
+      condition: MustNotExist
     assign:
       value: true
 
