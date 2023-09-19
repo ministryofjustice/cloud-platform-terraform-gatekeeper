@@ -26,10 +26,10 @@ spec:
       "trivy-system"
       ]
   location: "spec.securityContext.supplementalGroups"
-  pathTests:
-  - subPath: "spec.securityContext.supplementalGroups"
-    condition: MustNotExist
   parameters:
+    pathTests:
+    - subPath: "supplementalGroups"
+      condition: MustNotExist
     assign:
       value: 
         - 1
