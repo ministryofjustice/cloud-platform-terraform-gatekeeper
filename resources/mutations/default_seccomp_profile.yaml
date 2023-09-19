@@ -25,9 +25,10 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.securityContext.seccompProfile"
+  location: "spec.securityContext"
   parameters:
     assign: 
-      name: "type"
-      value: "RuntimeDefault"
+      value: 
+      seccompProfile:
+        type: "RuntimeDefault"
 

@@ -27,11 +27,11 @@ spec:
       ]
   location: "spec.securityContext"
   pathTests:
-  - subPath: "spec.securityContext.supplementalGroups"
+  - subPath: "supplementalGroups"
     condition: MustNotExist
   parameters:
     assign:
-      name: supplementalGroups
       value: 
+      supplementalGroups: 
         - 1
 
