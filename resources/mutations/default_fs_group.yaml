@@ -26,10 +26,10 @@ spec:
       "trivy-system"
       ]
   location: "spec.securityContext"
+  pathTests:
+  - subPath: "spec.securityContext.fsGroup"
+    condition: MustNotExist
   parameters:
-    pathTests:
-    - subPath: "spec.securityContext.fsGroup"
-      condition: MustNotExist
     assign:
       name: fsGroup
       value: 1
