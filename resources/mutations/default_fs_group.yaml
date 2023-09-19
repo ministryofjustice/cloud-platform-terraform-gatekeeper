@@ -27,10 +27,9 @@ spec:
       ]
   location: "spec.securityContext"
   pathTests:
-  - subPath: "fsGroup"
+  - subPath: "spec.securityContext.fsGroup"
     condition: MustNotExist
   parameters:
     assign:
-      value:
-        fsGroup: 1
+      value: 1
 
