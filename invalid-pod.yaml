@@ -10,4 +10,4 @@ spec:
     command: [ "sh", "-c", "sleep 15m" ]
     securityContext:
       allowPrivilegeEscalation: true
-      # runAsUser: 0
+      runAsUser: 0
