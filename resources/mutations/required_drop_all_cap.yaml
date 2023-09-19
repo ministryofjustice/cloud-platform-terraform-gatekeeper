@@ -25,9 +25,13 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.containers[name:*].securityContext.capabilities.drop"
+  location: "spec.containers[name:*].securityContext"
+  pathTests:
+  - subPath: "capabilities.drop"
+    condition: MustNotExist
   parameters:
     assign:
-      value: 
+      name: "capabilities.drop"
+      value:
         - "ALL"
 
