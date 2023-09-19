@@ -27,8 +27,8 @@ spec:
       ]
   location: "spec.securityContext.supplementalGroups"
   pathTests:
-    - subPath: "spec.securityContext.supplementalGroups"
-      condition: MustNotExist
+  - subPath: "spec.securityContext.supplementalGroups"
+    condition: MustNotExist
   parameters:
     assign:
       value: 

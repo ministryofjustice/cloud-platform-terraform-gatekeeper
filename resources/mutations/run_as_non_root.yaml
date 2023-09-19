@@ -27,8 +27,8 @@ spec:
       ]
   location: "spec.containers[name:*].securityContext.runAsNonRoot"
   pathTests:
-    - subPath: "spec.containers[name:*].securityContext.runAsNonRoot"
-      condition: MustNotExist
+  - subPath: "spec.containers[name:*].securityContext.runAsNonRoot"
+    condition: MustNotExist
   parameters:
     assign:
       value: true

@@ -27,8 +27,8 @@ spec:
       ]
   location: "spec.containers[name:*].securityContext.allowPrivilegeEscalation"
   pathTests:
-    - subPath: "spec.containers[name:*].securityContext.allowPrivilegeEscalation"
-      condition: MustNotExist
+  - subPath: "spec.containers[name:*].securityContext.allowPrivilegeEscalation"
+    condition: MustNotExist
   parameters:
     assign:
       value:  false
