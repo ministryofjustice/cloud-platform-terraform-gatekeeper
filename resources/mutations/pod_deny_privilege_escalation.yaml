@@ -25,12 +25,11 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.securityContext"
+  location: "spec.securityContext.allowPrivilegeEscalation"
   pathTests:
   - subPath: "spec.securityContext.allowPrivilegeEscalation"
     condition: MustNotExist
   parameters:
     assign:
-      value:
-        allowPrivilegeEscalation: false
+      value: false
 

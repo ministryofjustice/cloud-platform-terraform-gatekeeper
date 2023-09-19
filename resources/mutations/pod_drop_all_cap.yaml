@@ -25,13 +25,12 @@ spec:
       "tigera-operator",
       "trivy-system"
       ]
-  location: "spec.securityContext.capabilities"
+  location: "spec.securityContext.capabilities.drop"
   pathTests:
   - subPath: "spec.securityContext.capabilities.drop"
     condition: MustNotExist
   parameters:
     assign:
       value:
-        drop:
         - "ALL"
 
