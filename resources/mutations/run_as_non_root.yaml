@@ -23,7 +23,9 @@ spec:
       "logging",
       "monitoring",
       "tigera-operator",
-      "trivy-system"
+      "trivy-system",
+      "velero",
+      "cloud-platform-canary-app-eks"
       ]
   location: "spec.containers[name:*].securityContext.runAsNonRoot"
   parameters:
