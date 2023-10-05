@@ -12,6 +12,7 @@ spec:
       "calico-apiserver",
       "calico-system",
       "cert-manager",
+      "concourse",
       "gatekeeper-system",
       "ingress-controllers",
       "kube-system",
