@@ -24,7 +24,8 @@ spec:
       "logging",
       "monitoring",
       "tigera-operator",
-      "trivy-system"
+      "trivy-system",
+      "velero"
       ]
   location: "spec.securityContext.supplementalGroups"
   parameters:

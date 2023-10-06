@@ -24,7 +24,8 @@ spec:
       "logging",
       "monitoring",
       "tigera-operator",
-      "trivy-system"
+      "trivy-system",
+      "velero"
       ]
   location: "spec.containers[name:*].securityContext.capabilities.drop"
   parameters:
