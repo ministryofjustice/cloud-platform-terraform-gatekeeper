@@ -32,7 +32,7 @@ resource "helm_release" "gatekeeper" {
   namespace  = kubernetes_namespace.gatekeeper.id
   repository = "https://open-policy-agent.github.io/gatekeeper/charts"
   chart      = "gatekeeper"
-  version    = "3.12.0"
+  version    = "3.13.0"
 
   # https://github.com/open-policy-agent/gatekeeper/blob/master/charts/gatekeeper/values.yaml
   values = [templatefile("${path.module}/templates/values.yaml.tpl", {
@@ -79,6 +79,11 @@ module "constraints" {
   integration_test_zone = var.integration_test_zone
 
   depends_on = [time_sleep.wait_30_seconds_for_templates]
+}
+
+module "mutations" {
+  source     = "./mutations"
+  depends_on = [time_sleep.wait_30_seconds]
 }
 
 /* add resources to sync here */

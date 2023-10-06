@@ -1,0 +1,30 @@
+apiVersion: mutations.gatekeeper.sh/v1
+kind: AssignMetadata
+metadata:
+  name: annotate-seccomp-pod-runtime
+spec:
+  match:
+    scope: Namespaced
+    kinds:
+    - apiGroups: ["*"]
+      kinds: ["Pod"]
+    excludedNamespaces: [
+      "calico-apiserver",
+      "calico-system",
+      "cert-manager",
+      "concourse",
+      "gatekeeper-system",
+      "ingress-controllers",
+      "kube-system",
+      "kuberos",
+      "logging",
+      "monitoring",
+      "tigera-operator",
+      "trivy-system",
+      "velero"
+      ]
+  location: 'metadata.annotations."seccomp.security.alpha.kubernetes.io/pod"'
+  parameters:
+    assign:
+      value:  "runtime/default"
+

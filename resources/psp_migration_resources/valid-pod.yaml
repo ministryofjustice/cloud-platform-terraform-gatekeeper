@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: starter-pack-0
+  name: nginx
+spec:
+  containers:
+    - image: nginxinc/nginx-unprivileged:latest
+      name: nginx
+      ports:
+        - containerPort: 80
+
