@@ -19,6 +19,7 @@ spec:
       "kuberos",
       "logging",
       "monitoring",
+      "smoketest-psp-*",
       "tigera-operator",
       "trivy-system",
       "velero"
