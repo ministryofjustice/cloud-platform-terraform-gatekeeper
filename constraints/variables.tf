@@ -26,6 +26,7 @@ variable "dryrun_map" {
     external_dns_weight                = bool
     valid_hostname                     = bool
     warn_service_account_secret_delete = bool
+    user_ns_requires_psa_label         = bool
   })
 }
 

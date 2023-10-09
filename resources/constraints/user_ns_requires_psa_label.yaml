@@ -1,0 +1,30 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredLabels
+metadata:
+  name: user-ns-require-psa-label
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Namespace"]
+    excludedNamespaces: [
+      "calico-apiserver",
+      "calico-system",
+      "cert-manager",
+      "concourse",
+      "gatekeeper-system",
+      "ingress-controllers",
+      "kube-system",
+      "kuberos",
+      "logging",
+      "monitoring",
+      "smoketest-psp-*",
+      "tigera-operator",
+      "trivy-system",
+      "velero"
+      ]
+  parameters:
+    message: "All user namespaces must have a `pod-security.kubernetes.io/audit: restricted` label."
+    labels:
+    - key: pod-security.kubernetes.io/audit
+      allowedRegex: restricted
