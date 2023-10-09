@@ -1,0 +1,115 @@
+# apiVersion: constraints.gatekeeper.sh/v1beta1
+# kind: K8sPSPPrivilegedContainer
+# metadata:
+#   name: psp-privileged-container
+# spec:
+#   match:
+#     kinds:
+#       - apiGroups: [""]
+#         kinds: ["Pod"]
+#     namespaces: ["kube-system"]
+#     name: aws-node-*
+
+# ---
+
+# apiVersion: constraints.gatekeeper.sh/v1beta1
+# kind: K8sPSPHostNamespace
+# metadata:
+#   name: psp-host-namespace
+# spec:
+#   match:
+#     kinds:
+#       - apiGroups: [""]
+#         kinds: ["Pod"]
+#     namespaces: ["kube-system"]
+#     name: aws-node-*
+
+---
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPHostNetworkingPorts
+metadata:
+  name: psp-host-network-ports
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: ["kube-system"]
+    name: aws-node-*
+  parameters:
+    hostNetwork: true
+    min: 0
+    max: 65535
+
+---
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPVolumeTypes
+metadata:
+  name: psp-volume-types
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: ["kube-system"]
+    name: aws-node-*
+  parameters:
+    volumes:
+    - "*"
+
+---
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPAllowedUsers
+metadata:
+  name: psp-pods-allowed-user-ranges
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: ["kube-system"]
+    name: aws-node-*
+  parameters:
+    runAsUser:
+      rule: RunAsAny
+    runAsGroup:
+      rule: RunAsAny
+    supplementalGroups:
+      rule: RunAsAny
+    fsGroup:
+      rule: RunAsAny
+
+---
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPCapabilities
+metadata:
+  name: capabilities-demo
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: ["kube-system"]
+    name: aws-node-*
+  parameters:
+    allowedCapabilities: ["NET_BIND_SERVICE", "NET_ADMIN", "NET_RAW"]
+
+---
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sPSPSeccomp
+metadata:
+  name: psp-seccomp
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces: ["kube-system"]
+    name: aws-node-*
+  parameters:
+    allowedProfiles: ["*"]
