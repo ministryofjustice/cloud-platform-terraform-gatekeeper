@@ -7,6 +7,7 @@ resource "kubernetes_namespace" "gatekeeper" {
       "cloud-platform.justice.gov.uk/is-production"    = var.is_production
       "cloud-platform.justice.gov.uk/environment-name" = var.environment_name
       "admission.gatekeeper.sh/ignore"                 = "no-self-managing"
+      "pod-security.kubernetes.io/audit"               = "privileged"
     }
 
     annotations = {
