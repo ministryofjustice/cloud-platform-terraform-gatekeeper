@@ -15,11 +15,15 @@ spec:
       "gatekeeper-system",
       "ingress-controllers",
       "kube-system",
+      "kube-node-lease",
+      "kube-public",
+      "default",
       "kuberos",
       "logging",
       "monitoring",
       "smoketest-psp-*",
       "tigera-operator",
+      "cloud-platform-canary-app-eks",
       "trivy-system",
       "velero"
       ]
