@@ -7,7 +7,7 @@ Kubernetes allows decoupling policy decisions from the API server by means of ad
 ## Usage
 
 The order which resources are created are important, to control resource creation order `constraint_templates` and `constraints` are broken into sub-modules.
-A downside of this approach, is that you have to pass variables twice, once into the parent module and then again to the constraints module. However the benefits are that we can easily create constraints and templates with terraform loops and control resource creation order.
+A downside of this approach, is that you have to pass variables twice (small amount of "dry"), once into the parent module and then again to the constraints module. However, the benefits are that we can easily create constraints and templates with terraform loops and control resource creation order.
 
 ### Adding a new constraint:
 
