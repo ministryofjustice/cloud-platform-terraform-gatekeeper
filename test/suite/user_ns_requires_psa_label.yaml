@@ -17,10 +17,10 @@ tests:
       object: samples/ns_requires_psa_label/deny_invalid_ns/case.yaml
       assertions:
       - violations: yes 
-        message: "All user namespaces must have a `pod-security.kubernetes.io/audit: restricted` label." 
+        message: "All user namespaces must have a `pod-security.kubernetes.io/enforce: restricted` label." 
     - name: deny-missing-label
       object: samples/ns_requires_psa_label/deny_missing_label/case.yaml
       assertions:
       - violations: yes 
-        message: "All user namespaces must have a `pod-security.kubernetes.io/audit: restricted` label."
+        message: "All user namespaces must have a `pod-security.kubernetes.io/enforce: restricted` label."
 
