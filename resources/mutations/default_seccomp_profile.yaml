@@ -24,12 +24,17 @@ spec:
       "logging",
       "monitoring",
       "smoketest-psp-*",
+      "smoketest-psa-*",
       "tigera-operator",
       "trivy-system",
-      "velero"
+      "velero",
+      "cloud-platform-canary-app-eks"
       ]
   location: "spec.securityContext.seccompProfile.type"
   parameters:
+    pathTests:
+    - subPath: "spec.securityContext.seccompProfile.type"
+      condition: MustNotExist
     assign: 
       value: "RuntimeDefault"
 

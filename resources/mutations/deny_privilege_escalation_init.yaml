@@ -1,7 +1,7 @@
 apiVersion: mutations.gatekeeper.sh/v1
 kind: Assign
 metadata:
-  name: default-fs-group
+  name: deny-privilege-escalation-init
 spec:
   applyTo:
   - groups: [""]
@@ -30,11 +30,8 @@ spec:
       "velero",
       "cloud-platform-canary-app-eks"
       ]
-  location: "spec.securityContext.fsGroup"
+  location: "spec.initContainers[name:*].securityContext.allowPrivilegeEscalation"
   parameters:
-    pathTests:
-    - subPath: "spec.securityContext.fsGroup"
-      condition: MustNotExist
     assign:
-      value: 1
+      value: false
 

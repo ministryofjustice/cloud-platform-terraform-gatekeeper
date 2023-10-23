@@ -24,6 +24,7 @@ spec:
       "logging",
       "monitoring",
       "smoketest-psp-*",
+      "smoketest-psa-*",
       "tigera-operator",
       "trivy-system",
       "velero",
@@ -31,9 +32,6 @@ spec:
       ]
   location: "spec.containers[name:*].securityContext.runAsNonRoot"
   parameters:
-    pathTests:
-    - subPath: "spec.containers[name:*].securityContext.runAsNonRoot"
-      condition: MustNotExist
     assign:
       value: true
 

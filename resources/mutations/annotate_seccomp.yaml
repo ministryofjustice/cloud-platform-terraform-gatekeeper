@@ -20,9 +20,11 @@ spec:
       "logging",
       "monitoring",
       "smoketest-psp-*",
+      "smoketest-psa-*",
       "tigera-operator",
       "trivy-system",
-      "velero"
+      "velero",
+      "cloud-platform-canary-app-eks"
       ]
   location: 'metadata.annotations."seccomp.security.alpha.kubernetes.io/pod"'
   parameters:
