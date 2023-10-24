@@ -20,3 +20,5 @@ audit:
       requests:
         cpu: 100m
         memory: ${audit_mem_req}
+psp:
+  enabled: false
