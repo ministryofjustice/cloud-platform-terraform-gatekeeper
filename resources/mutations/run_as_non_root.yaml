@@ -31,9 +31,6 @@ spec:
       ]
   location: "spec.containers[name:*].securityContext.runAsNonRoot"
   parameters:
-    pathTests:
-    - subPath: "spec.containers[name:*].securityContext.runAsNonRoot"
-      condition: MustNotExist
     assign:
       value: true
 
@@ -72,9 +69,6 @@ spec:
       ]
   location: "spec.initContainers[name:*].securityContext.runAsNonRoot"
   parameters:
-    pathTests:
-    - subPath: "spec.initContainers[name:*].securityContext.runAsNonRoot"
-      condition: MustNotExist
     assign:
       value: true
 
