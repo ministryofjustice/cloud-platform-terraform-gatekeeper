@@ -33,3 +33,39 @@ spec:
     assign:
       value: false
 
+---
+apiVersion: mutations.gatekeeper.sh/v1
+kind: Assign
+metadata:
+  name: deny-privilege-escalation-init
+spec:
+  applyTo:
+  - groups: [""]
+    kinds: ["Pod"]
+    versions: ["v1"]
+  match:
+    scope: Namespaced
+    kinds:
+    - apiGroups: ["*"]
+      kinds: ["Pod"]
+    excludedNamespaces: [
+      "calico-apiserver",
+      "calico-system",
+      "cert-manager",
+      "concourse",
+      "gatekeeper-system",
+      "ingress-controllers",
+      "kube-system",
+      "kuberos",
+      "logging",
+      "monitoring",
+      "smoketest-psp-*",
+      "tigera-operator",
+      "trivy-system",
+      "velero"
+      ]
+  location: "spec.initContainers[name:*].securityContext.allowPrivilegeEscalation"
+  parameters:
+    assign:
+      value: false
+
