@@ -22,6 +22,7 @@ spec:
       "logging",
       "monitoring",
       "smoketest-psp-*",
+      "smoketest-psa-*",
       "tigera-operator",
       "cloud-platform-canary-app-eks",
       "trivy-system",

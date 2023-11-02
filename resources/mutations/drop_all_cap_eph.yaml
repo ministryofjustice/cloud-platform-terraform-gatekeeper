@@ -1,7 +1,7 @@
 apiVersion: mutations.gatekeeper.sh/v1
 kind: Assign
 metadata:
-  name: deny-privilege-escalation
+  name: drop-all-cap-eph
 spec:
   applyTo:
   - groups: [""]
@@ -24,12 +24,15 @@ spec:
       "logging",
       "monitoring",
       "smoketest-psp-*",
+      "smoketest-psa-*",
       "tigera-operator",
       "trivy-system",
-      "velero"
+      "velero",
+      "cloud-platform-canary-app-eks"
       ]
-  location: "spec.containers[name:*].securityContext.allowPrivilegeEscalation"
+  location: "spec.ephemeralContainers[name:*].securityContext.capabilities.drop"
   parameters:
     assign:
-      value: false
+      value:
+        - "ALL"
 
