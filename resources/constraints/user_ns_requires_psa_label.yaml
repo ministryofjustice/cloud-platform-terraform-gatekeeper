@@ -13,7 +13,6 @@ spec:
       "cert-manager",
       "concourse",
       "gatekeeper-system",
-      "ingress-controllers",
       "kube-system",
       "kube-node-lease",
       "kube-public",
