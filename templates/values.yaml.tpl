@@ -22,3 +22,4 @@ audit:
         memory: ${audit_mem_req}
 psp:
   enabled: false
+logDenies: true
