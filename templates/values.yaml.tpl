@@ -2,6 +2,7 @@ constraintViolationsLimit: ${constraint_violations_max_to_display}
 auditFromCache: ${audit_from_cache}
 enableDeleteOperations: true
 mutationAnnotations: true
+logDenies: true
 postInstall:
   labelNamespace:
     enabled: ${post_install_label_namespace}
@@ -22,4 +23,3 @@ audit:
         memory: ${audit_mem_req}
 psp:
   enabled: false
-logDenies: true
