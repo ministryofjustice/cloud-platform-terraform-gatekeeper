@@ -13,6 +13,10 @@ tests:
     object: samples/external_dns_weight/allow_weight/case.yaml
     assertions:
     - violations: no
+  - name: allow-cert-manager
+    object: samples/external_dns_weight/allow_cert_manager/case.yaml
+    assertions:
+    - violations: no
   - name: deny-ignore-false
     object: samples/external_dns_weight/deny_ignore_false/case.yaml
     assertions:

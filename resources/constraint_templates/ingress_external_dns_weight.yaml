@@ -18,9 +18,8 @@ spec:
 
         violation[{"msg": msg}] {
           input.review.kind.kind == "Ingress"
+          not startswith(input.review.object.metadata.name, "cm-acme-http-solver")
           not input.review.object.metadata.annotations["external-dns.alpha.kubernetes.io/aws-weight"]
           not input.review.object.metadata.annotations["cloud-platform.justice.gov.uk/ignore-external-dns-weight"] == "true"
           msg := "\nPlease add valid AWS weight annotation e.g. external-dns.alpha.kubernetes.io/aws-weight: '100'"
         }
-
-

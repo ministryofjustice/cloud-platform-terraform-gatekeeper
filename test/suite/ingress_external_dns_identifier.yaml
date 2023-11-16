@@ -17,6 +17,10 @@ tests:
     object: samples/external_dns_identifier/allow_ignore/case.yaml
     assertions:
     - violations: no
+  - name: allow-cert-manager
+    object: samples/external_dns_identifier/allow_cert_manager/case.yaml
+    assertions:
+    - violations: no
   - name: deny-false-ignore
     object: samples/external_dns_identifier/deny_false_ignore/case.yaml
     assertions:
