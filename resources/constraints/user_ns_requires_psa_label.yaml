@@ -18,6 +18,7 @@ spec:
       "kube-node-lease",
       "kube-public",
       "default",
+      "kuberhealthy",
       "kuberos",
       "logging",
       "monitoring",
