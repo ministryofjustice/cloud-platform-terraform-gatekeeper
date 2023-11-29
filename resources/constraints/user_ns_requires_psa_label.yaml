@@ -8,6 +8,7 @@ spec:
       - apiGroups: [""]
         kinds: ["Namespace"]
     excludedNamespaces: [
+      "cloud-platform-label-pods",
       "calico-apiserver",
       "calico-system",
       "cert-manager",
