@@ -68,6 +68,10 @@ variable "dryrun_map" {
     valid_hostname                     = bool
     warn_service_account_secret_delete = bool
     user_ns_requires_psa_label         = bool
+    deprecated_apis_1_25               = bool
+    deprecated_apis_1_26               = bool
+    deprecated_apis_1_27               = bool
+    deprecated_apis_1_29               = bool
   })
 }
 
