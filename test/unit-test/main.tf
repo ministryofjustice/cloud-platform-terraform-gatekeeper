@@ -19,7 +19,6 @@ module "gatekeeper" {
     valid_hostname                     = true,
     warn_service_account_secret_delete = true,
     user_ns_requires_psa_label         = true,
-    deprecated_apis_1_25               = true,
     deprecated_apis_1_26               = true,
     deprecated_apis_1_27               = true,
     deprecated_apis_1_29               = true,

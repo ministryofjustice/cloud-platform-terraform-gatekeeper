@@ -3,18 +3,6 @@ apiVersion: test.gatekeeper.sh/v1alpha1
 metadata:
   name: verifydeprecatedapi
 tests:
-- name: verifydeprecatedapi-1.25
-  template: ../../resources/constraint_templates/verify_deprecated_api.yaml
-  constraint: ../../resources/constraints/deprecated_apis_1.25.yaml
-  cases:
-  - name: 1.25-allowed
-    object: samples/verify_deprecated_apis/1.25/allow/case.yaml
-    assertions:
-    - violations: no
-  - name: 1.25-disallowed
-    object: samples/verify_deprecated_apis/1.25/deny/case.yaml
-    assertions:
-    - violations: yes
 - name: verifydeprecatedapi-1.26
   template: ../../resources/constraint_templates/verify_deprecated_api.yaml
   constraint: ../../resources/constraints/deprecated_apis_1.26.yaml

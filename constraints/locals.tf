@@ -10,7 +10,6 @@ locals {
   valid_hostname_yaml                     = yamldecode(file("${path.module}/../resources/constraints/ingress_valid_hostname.yaml"))
   warn_service_account_secret_delete_yaml = yamldecode(file("${path.module}/../resources/constraints/warn_service_account_secret_delete.yaml"))
   user_ns_requires_psa_label_yaml         = yamldecode(file("${path.module}/../resources/constraints/user_ns_requires_psa_label.yaml"))
-  deprecated_apis_1_25_yaml               = yamldecode(file("${path.module}/../resources/constraints/deprecated_apis_1.25.yaml"))
   deprecated_apis_1_26_yaml               = yamldecode(file("${path.module}/../resources/constraints/deprecated_apis_1.26.yaml"))
   deprecated_apis_1_27_yaml               = yamldecode(file("${path.module}/../resources/constraints/deprecated_apis_1.27.yaml"))
   deprecated_apis_1_29_yaml               = yamldecode(file("${path.module}/../resources/constraints/deprecated_apis_1.29.yaml"))
