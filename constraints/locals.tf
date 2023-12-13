@@ -10,6 +10,9 @@ locals {
   valid_hostname_yaml                     = yamldecode(file("${path.module}/../resources/constraints/ingress_valid_hostname.yaml"))
   warn_service_account_secret_delete_yaml = yamldecode(file("${path.module}/../resources/constraints/warn_service_account_secret_delete.yaml"))
   user_ns_requires_psa_label_yaml         = yamldecode(file("${path.module}/../resources/constraints/user_ns_requires_psa_label.yaml"))
+  deprecated_apis_1_26_yaml               = yamldecode(file("${path.module}/../resources/constraints/deprecated_apis_1.26.yaml"))
+  deprecated_apis_1_27_yaml               = yamldecode(file("${path.module}/../resources/constraints/deprecated_apis_1.27.yaml"))
+  deprecated_apis_1_29_yaml               = yamldecode(file("${path.module}/../resources/constraints/deprecated_apis_1.29.yaml"))
 
   # For each constraint, a value needs to be in the constraint map. This bloc allows us to set values on constraints which enables us to toggle the configuration of the constraints. -- we merge in the spec separately to avoid overwriting entire spec key
   constraint_map = {
@@ -24,5 +27,8 @@ locals {
     valid_hostname                     = merge(local.valid_hostname_yaml, { "spec" : merge(local.valid_hostname_yaml["spec"], { "enforcementAction" : var.dryrun_map.valid_hostname ? "dryrun" : "deny", "parameters" : { "validDomainNames" : "*.${var.cluster_domain_name},*.${var.integration_test_zone}" } }) })
     warn_service_account_secret_delete = merge(local.warn_service_account_secret_delete_yaml, { "spec" : merge(local.warn_service_account_secret_delete_yaml["spec"], { "enforcementAction" : var.dryrun_map.warn_service_account_secret_delete ? "dryrun" : "warn" }) })
     user_ns_requires_psa_label         = merge(local.user_ns_requires_psa_label_yaml, { "spec" : merge(local.user_ns_requires_psa_label_yaml["spec"], { "enforcementAction" : var.dryrun_map.user_ns_requires_psa_label ? "dryrun" : "deny" }) })
+    deprecated_apis_1_26               = merge(local.deprecated_apis_1_26_yaml, { "spec" : merge(local.deprecated_apis_1_26_yaml["spec"], { "enforcementAction" : var.dryrun_map.deprecated_apis_1_26 ? "dryrun" : "deny" }) })
+    deprecated_apis_1_27               = merge(local.deprecated_apis_1_27_yaml, { "spec" : merge(local.deprecated_apis_1_27_yaml["spec"], { "enforcementAction" : var.dryrun_map.deprecated_apis_1_27 ? "dryrun" : "deny" }) })
+    deprecated_apis_1_29               = merge(local.deprecated_apis_1_29_yaml, { "spec" : merge(local.deprecated_apis_1_29_yaml["spec"], { "enforcementAction" : var.dryrun_map.deprecated_apis_1_29 ? "dryrun" : "deny" }) })
   }
 }

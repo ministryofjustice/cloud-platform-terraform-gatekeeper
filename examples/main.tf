@@ -3,7 +3,22 @@ module "gatekeeper" {
 
   cluster_domain_name = data.terraform_remote_state.cluster.outputs.cluster_domain_name
   # boolean expression for applying opa valid hostname for test clusters only.
-  dryrun_map                           = { service_type = true, snippet_allowlist = true, modsec_snippet_nginx_class = true, modsec_nginx_class = true, ingress_clash = true, hostname_length = true, external_dns_identifier = true, external_dns_weight = true, valid_hostname = true, warn_service_account_secret_delete = true, user_ns_requires_psa_label = true }
+  dryrun_map = {
+    service_type                       = true,
+    snippet_allowlist                  = true,
+    modsec_snippet_nginx_class         = true,
+    modsec_nginx_class                 = true,
+    ingress_clash                      = true,
+    hostname_length                    = true,
+    external_dns_identifier            = true,
+    external_dns_weight                = true,
+    valid_hostname                     = true,
+    warn_service_account_secret_delete = true,
+    user_ns_requires_psa_label         = true,
+    deprecated_apis_1_26               = true,
+    deprecated_apis_1_27               = true,
+    deprecated_apis_1_29               = true,
+  }
   cluster_color                        = "green"
   constraint_violations_max_to_display = 25
   is_production                        = terraform.workspace == local.production_workspace ? "true" : "false"
