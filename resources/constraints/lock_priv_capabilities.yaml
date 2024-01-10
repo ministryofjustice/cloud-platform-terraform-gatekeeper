@@ -22,13 +22,13 @@ spec:
       "cloud-platform-canary-app-eks",
       "trivy-system",
       "velero"
-    ]
+      ]
     excludedNamespaces: [
       "ingress-controllers",
       "kube-system",
       "kube-node-lease",
       "kube-public",
-    ]
+      ]
   parameters:
     allowedCapabilities: ["NET_BIND_SERVICE","NET_ADMIN"]
     requiredDropCapabilities: ["NET_RAW"]
