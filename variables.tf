@@ -71,6 +71,7 @@ variable "dryrun_map" {
     deprecated_apis_1_26               = bool
     deprecated_apis_1_27               = bool
     deprecated_apis_1_29               = bool
+    lock_priv_capabilities            = bool
   })
 }
 
