@@ -11,6 +11,7 @@ spec:
       "calico-apiserver",
       "calico-system",
       "cert-manager",
+      "cloud-platform-canary-app-eks",
       "concourse",
       "gatekeeper-system",
       "kuberhealthy",
@@ -18,8 +19,6 @@ spec:
       "logging",
       "monitoring",
       "smoketest-psa-*",
-      "tigera-operator",
-      "cloud-platform-canary-app-eks",
       "trivy-system",
       "velero"
       ]
@@ -28,6 +27,7 @@ spec:
       "kube-system",
       "kube-node-lease",
       "kube-public",
+      "tigera-operator",
       ]
   parameters:
     allowedCapabilities: ["NET_BIND_SERVICE","NET_ADMIN"]
