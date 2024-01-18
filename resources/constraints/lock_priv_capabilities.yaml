@@ -26,6 +26,7 @@ spec:
       "kube-system",
       "kube-node-lease",
       "kube-public",
+      "kuberhealthy",
       "tigera-operator",
       ]
   parameters:
