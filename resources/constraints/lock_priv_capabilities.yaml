@@ -14,7 +14,6 @@ spec:
       "cloud-platform-canary-app-eks",
       "concourse",
       "gatekeeper-system",
-      "kuberhealthy",
       "kuberos",
       "logging",
       "monitoring",
