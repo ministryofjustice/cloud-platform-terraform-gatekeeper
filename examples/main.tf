@@ -18,7 +18,8 @@ module "gatekeeper" {
     deprecated_apis_1_26               = true,
     deprecated_apis_1_27               = true,
     deprecated_apis_1_29               = true,
-    lock_priv_capabilities            = true,
+    lock_priv_capabilities             = true,
+    deny_kubectl_create_sa             = true,
   }
   cluster_color                        = "green"
   constraint_violations_max_to_display = 25
