@@ -1,0 +1,11 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: DenyKubectlServiceAccount
+metadata:
+  name: deny-kubectl-create-sa
+spec:
+  match:
+    kinds:
+      - kinds: ["ServiceAccount"]
+  parameters:
+    allowedGroups: ["system:masters", "github:webops", "system:serviceaccounts:concourse"]
+

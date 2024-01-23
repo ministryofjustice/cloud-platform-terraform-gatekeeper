@@ -1,0 +1,20 @@
+kind: Suite
+apiVersion: test.gatekeeper.sh/v1alpha1
+tests:
+- name: deny_kubectl_create_sa
+  template: ../../resources/constraint_templates/deny_sa.yaml
+  constraint: ../../resources/constraints/deny_sa.yaml
+  cases:
+  - name: allow-sa-creation-if-webops
+    object: samples/deny_sa/allow/case.yaml
+    assertions:
+    - violations: no
+  - name: allow-sa-creation-if-concourse
+    object: samples/deny_sa/allow/case.yaml
+    assertions:
+    - violations: no
+  - name: deny-sa-creation-if-not-whitelisted-group
+    object: samples/deny_sa/deny/case.yaml
+    assertions:
+    - violations: yes
+
