@@ -7,5 +7,5 @@ spec:
     kinds:
       - kinds: ["ServiceAccount"]
   parameters:
-    allowedGroups: ["system:masters", "github:webops", "system:serviceaccounts:concourse"]
+    allowedGroups: ["system:masters", "github:webops", "system:serviceaccounts:concourse", "system:serviceaccount:kube-system:concourse-build-environments", "system:serviceaccounts:concourse-build-environments"]
 
