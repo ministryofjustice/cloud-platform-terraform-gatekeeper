@@ -14,7 +14,7 @@ locals {
   deprecated_apis_1_27_yaml               = yamldecode(file("${path.module}/../resources/constraints/deprecated_apis_1.27.yaml"))
   deprecated_apis_1_29_yaml               = yamldecode(file("${path.module}/../resources/constraints/deprecated_apis_1.29.yaml"))
   lock_priv_capabilities_yaml             = yamldecode(file("${path.module}/../resources/constraints/lock_priv_capabilities.yaml"))
-  deny_kubectl_create_sa                  = yamldecode(file("${path.module}/../resources/constraints/deny_sa.yaml"))
+  warn_kubectl_create_sa                  = yamldecode(file("${path.module}/../resources/constraints/warn_sa.yaml"))
 
   # For each constraint, a value needs to be in the constraint map. This bloc allows us to set values on constraints which enables us to toggle the configuration of the constraints. -- we merge in the spec separately to avoid overwriting entire spec key
   constraint_map = {
@@ -33,6 +33,6 @@ locals {
     deprecated_apis_1_27               = merge(local.deprecated_apis_1_27_yaml, { "spec" : merge(local.deprecated_apis_1_27_yaml["spec"], { "enforcementAction" : var.dryrun_map.deprecated_apis_1_27 ? "dryrun" : "deny" }) })
     deprecated_apis_1_29               = merge(local.deprecated_apis_1_29_yaml, { "spec" : merge(local.deprecated_apis_1_29_yaml["spec"], { "enforcementAction" : var.dryrun_map.deprecated_apis_1_29 ? "dryrun" : "deny" }) })
     lock_priv_capabilities             = merge(local.lock_priv_capabilities_yaml, { "spec" : merge(local.lock_priv_capabilities_yaml["spec"], { "enforcementAction" : var.dryrun_map.lock_priv_capabilities ? "dryrun" : "deny" }) })
-    deny_kubectl_create_sa             = merge(local.deny_kubectl_create_sa, { "spec" : merge(local.deny_kubectl_create_sa["spec"], { "enforcementAction" : var.dryrun_map.deny_kubectl_create_sa ? "dryrun" : "deny" }) })
+    warn_kubectl_create_sa             = merge(local.warn_kubectl_create_sa, { "spec" : merge(local.warn_kubectl_create_sa["spec"], { "enforcementAction" : var.dryrun_map.warn_kubectl_create_sa ? "dryrun" : "warn" }) })
   }
 }
