@@ -13,6 +13,7 @@ spec:
     - apiGroups: ["*"]
       kinds: ["Pod"]
     excludedNamespaces: [
+      "cattle-system",
       "calico-apiserver",
       "calico-system",
       "cert-manager",
