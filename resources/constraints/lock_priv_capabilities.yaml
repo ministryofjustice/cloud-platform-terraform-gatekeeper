@@ -8,6 +8,7 @@ spec:
       - apiGroups: [""]
         kinds: ["Pod"]
     namespaces: [
+      "cattle-system",
       "calico-apiserver",
       "calico-system",
       "cert-manager",

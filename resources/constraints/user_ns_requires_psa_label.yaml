@@ -8,6 +8,7 @@ spec:
       - apiGroups: [""]
         kinds: ["Namespace"]
     excludedNamespaces: [
+      "cattle-system",
       "calico-apiserver",
       "calico-system",
       "cert-manager",
