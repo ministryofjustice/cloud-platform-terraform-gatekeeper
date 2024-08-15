@@ -27,7 +27,8 @@ spec:
       "tigera-operator",
       "cloud-platform-canary-app-eks",
       "trivy-system",
-      "velero"
+      "velero",
+      "cortex-xdr"
       ]
   parameters:
     message: "All user namespaces must have a `pod-security.kubernetes.io/enforce: restricted` label."
