@@ -25,4 +25,8 @@ tests:
     object: samples/external_dns_weight/deny_no_weight/case.yaml
     assertions:
     - violations: yes
+  - name: deny-empty-weight
+    object: samples/external_dns_weight/deny_empty_weight/case.yaml
+    assertions:
+    - violations: yes
 
