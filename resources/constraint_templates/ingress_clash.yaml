@@ -15,8 +15,12 @@ spec:
       rego: |
         package k8singressclash
 
+        # Skip conflict check if the ingress is annotated for blue-green deployments.
+        skip := input.review.object.metadata.annotations["allow-duplicate-host"] == "true"
+
         violation[{"msg": msg}] {
           input.review.kind.kind == "Ingress"
+          not skip
           id := concat("/", [input.review.object.metadata.namespace, input.review.object.metadata.name])
 
           host := input.review.object.spec.rules[_].host

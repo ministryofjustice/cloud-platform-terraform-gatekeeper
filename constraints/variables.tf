@@ -32,6 +32,7 @@ variable "dryrun_map" {
     deprecated_apis_1_29               = bool
     lock_priv_capabilities             = bool
     warn_kubectl_create_sa             = bool
+    allow_duplicate_hostname_yaml      = bool
   })
 }
 
