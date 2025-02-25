@@ -33,6 +33,7 @@ variable "dryrun_map" {
     lock_priv_capabilities             = bool
     warn_kubectl_create_sa             = bool
     allow_duplicate_hostname_yaml      = bool
+    block_ingresses                    = bool
   })
 }
 
