@@ -19,6 +19,6 @@ spec:
         violation[{"msg": msg}] {
           input.review.kind.kind == "Ingress"
           not input.review.object.metadata.namespace == "jaskaran-dev"
-          msg := sprintf("\nIngress actions are temporarily blocked whilst the Cloud Platform goes under essential maintenance. The maintenance window is on Tuesday 4th March between 1900 to 2300.", [])
+          msg := sprintf("\nIngress actions are temporarily blocked whilst the Cloud Platform goes under essential maintenance. The maintenance window is on Tuesday 4th March between 1900 to 2300. For more info see https://mojdt.slack.com/archives/CH6D099DF/p1740668486144479. Please raise any other queries in #ask-cloud-platform.", [])
         }
 
