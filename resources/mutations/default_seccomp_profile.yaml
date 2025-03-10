@@ -29,8 +29,7 @@ spec:
       "trivy-system",
       "velero",
       "cloud-platform-canary-app-eks",
-      "kuberhealthy",
-      "hmpps-restricted-patients-api-dev"
+      "kuberhealthy"
       ]
   location: "spec.securityContext.seccompProfile.type"
   parameters:
