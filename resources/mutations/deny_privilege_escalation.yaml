@@ -28,8 +28,7 @@ spec:
       "tigera-operator",
       "trivy-system",
       "velero",
-      "cloud-platform-canary-app-eks",
-      "kuberhealthy"
+      "cloud-platform-canary-app-eks"
       ]
   location: "spec.containers[name:*].securityContext.allowPrivilegeEscalation"
   parameters:
