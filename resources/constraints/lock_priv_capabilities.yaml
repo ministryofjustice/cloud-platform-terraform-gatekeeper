@@ -26,8 +26,7 @@ spec:
       "kube-system",
       "kube-node-lease",
       "kube-public",
-      "kuberhealthy",
-      "tigera-operator",
+      "tigera-operator"
       ]
   parameters:
     allowedCapabilities: ["NET_BIND_SERVICE","NET_ADMIN"]
