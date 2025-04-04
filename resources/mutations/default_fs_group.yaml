@@ -30,6 +30,9 @@ spec:
       "velero",
       "cloud-platform-canary-app-eks"
       ]
+  mutatingWebhookMatchConditions:
+  - name: "skip-terminating-pods"
+    expression: "object.metadata.deletionTimestamp == null"      
   location: "spec.securityContext.fsGroup"
   parameters:
     pathTests:
