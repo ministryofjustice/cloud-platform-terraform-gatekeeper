@@ -28,21 +28,7 @@ spec:
       "tigera-operator",
       "trivy-system",
       "velero",
-      "cloud-platform-canary-app-eks",
-      "hmpps-adjustments-preprod",
-      "hmpps-adjustments-prod",
-      "hmpps-incentives-prod",
-      "hmpps-launchpad-prod",
-      "hmpps-locations-inside-prison-prod",
-      "hmpps-non-associations-prod",
-      "hmpps-person-record-prod",
-      "hmpps-prisoner-from-nomis-migration-prod",
-      "hmpps-prisoner-search-dev",
-      "hmpps-prisoner-search-prod",
-      "hmpps-restricted-patients-api-prod",
-      "laa-apply-for-legalaid-uat",
-      "offender-case-notes-prod",
-      "whereabouts-api-prod"
+      "cloud-platform-canary-app-eks"
       ]
   location: "spec.securityContext.supplementalGroups"
   parameters:
