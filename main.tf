@@ -117,11 +117,7 @@ spec:
         kind: "ServiceAccount"
   validation:
     traces:
-      - user:
-          kind:
-            group: "*"
-            version: "*"
-            kind: "*"
+      - user: "*"
         kind:
           group: "*"
           version: "*"
