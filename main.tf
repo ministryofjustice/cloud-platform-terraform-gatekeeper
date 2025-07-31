@@ -112,17 +112,7 @@ spec:
       - group: ""
         version: "v1"
         kind: "Service"
-  #     - group: ""
-  #       version: "v1"
-  #       kind: "ServiceAccount"
-  # validation:
-  #   traces:
-  #     - user: "*"
-  #       kind:
-  #         group: "*"
-  #         version: "*"
-  #         kind: "*"
-  # exemptNamespaces: ["kube-system", "gatekeeper-system", "kube-public", "kube-node-lease"]
+  exemptNamespaces: ["kube-system", "gatekeeper-system", "kube-public", "kube-node-lease"]
 YAML
 }
 
