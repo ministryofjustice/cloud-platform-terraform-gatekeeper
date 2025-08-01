@@ -114,7 +114,6 @@ spec:
       - group: ""
         version: "v1"
         kind: "Service"
-  exemptNamespaces: ["kube-system", "gatekeeper-system", "kube-public", "kube-node-lease"]
 YAML
 }
 
