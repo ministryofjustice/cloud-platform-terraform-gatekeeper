@@ -44,6 +44,8 @@ resource "helm_release" "gatekeeper" {
     controller_mem_req                   = var.controller_mem_req
     audit_mem_limit                      = var.audit_mem_limit
     audit_mem_req                        = var.audit_mem_req
+    log_denies                          = "true"
+    log_level                           = "INFO"
   })]
 
   lifecycle {
