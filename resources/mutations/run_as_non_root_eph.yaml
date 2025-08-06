@@ -27,8 +27,7 @@ spec:
       "smoketest-psa-*",
       "tigera-operator",
       "trivy-system",
-      "velero",
-      "cloud-platform-canary-app-eks"
+      "velero"
       ]
   location: "spec.ephemeralContainers[name:*].securityContext.runAsNonRoot"
   parameters:

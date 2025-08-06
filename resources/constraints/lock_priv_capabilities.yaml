@@ -11,7 +11,6 @@ spec:
       "calico-apiserver",
       "calico-system",
       "cert-manager",
-      "cloud-platform-canary-app-eks",
       "concourse",
       "gatekeeper-system",
       "kuberos",
