@@ -1,0 +1,26 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8smodsecsnippetthreshold
+  annotations:
+    metadata.gatekeeper.sh/title: Modsec snippet NGINX Threshold Ignore
+    description: This policy denies any ingress that has a "nginx.ingress.kubernetes.io/modsecurity-snippet" annotation that ignores the threshold check rule
+spec:
+  crd:
+    spec:
+      names:
+        kind: k8smodsecsnippetthreshold
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8smodsecsnippetthreshold
+
+        violation[{"msg": msg}] {
+          input.review.kind.kind == "Ingress"
+          input.review.object.metadata.annotations["kubernetes.io/ingress.class"] == "modsec"
+          input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/enable-modsecurity"] == "true"
+          input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/modsecurity-snippet"]
+          contains(input.review.object.metadata.annotations["nginx.ingress.kubernetes.io/modsecurity-snippet"], "SecRuleRemoveById 949110")
+          msg := "You cannot remove this rule because this checks the Inbound Anomaly Score and causes memory spikes, if you do not wish to have modsec actively block requests please set `SecRuleEngine DetectionOnly`"
+        }
+
