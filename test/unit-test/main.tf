@@ -26,6 +26,7 @@ module "gatekeeper" {
     warn_kubectl_create_sa             = true,
     allow_duplicate_hostname_yaml      = true,
     block_ingresses                    = false,
+    ingress_valid_classname            = true,
   }
   cluster_color                        = "green"
   constraint_violations_max_to_display = 25

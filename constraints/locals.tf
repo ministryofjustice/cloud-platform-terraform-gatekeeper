@@ -17,6 +17,7 @@ locals {
   warn_kubectl_create_sa                  = yamldecode(file("${path.module}/../resources/constraints/warn_sa.yaml"))
   allow_duplicate_hostname_yaml           = yamldecode(file("${path.module}/../resources/constraints/ingress_allow_duplicate_hostname.yaml"))
   block_ingresses_yaml                    = yamldecode(file("${path.module}/../resources/constraints/block_ingresses.yaml"))
+  ingress_valid_classname_yaml            = yamldecode(file("${path.module}/../resources/constraints/ingress_valid_classname.yaml"))
 
   # For each constraint, a value needs to be in the constraint map. This bloc allows us to set values on constraints which enables us to toggle the configuration of the constraints. -- we merge in the spec separately to avoid overwriting entire spec key
   constraint_map = {
@@ -38,5 +39,6 @@ locals {
     warn_kubectl_create_sa             = merge(local.warn_kubectl_create_sa, { "spec" : merge(local.warn_kubectl_create_sa["spec"], { "enforcementAction" : var.dryrun_map.warn_kubectl_create_sa ? "dryrun" : "warn" }) })
     allow_duplicate_hostname_yaml      = merge(local.allow_duplicate_hostname_yaml, { "spec" : merge(local.allow_duplicate_hostname_yaml["spec"], { "enforcementAction" : var.dryrun_map.allow_duplicate_hostname_yaml ? "dryrun" : "deny" }) })
     block_ingresses_yaml               = merge(local.block_ingresses_yaml, { "spec" : merge(local.block_ingresses_yaml["spec"], { "enforcementAction" : var.dryrun_map.block_ingresses ? "dryrun" : "deny" }) })
+    ingress_valid_classname            = merge(local.ingress_valid_classname_yaml, { "spec" : merge(local.ingress_valid_classname_yaml["spec"], { "enforcementAction" : var.dryrun_map.ingress_valid_classname ? "dryrun" : "deny" }) })
   }
 }
