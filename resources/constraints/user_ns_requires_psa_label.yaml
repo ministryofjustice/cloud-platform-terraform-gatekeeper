@@ -25,7 +25,8 @@ spec:
       "smoketest-psa-*",
       "tigera-operator",
       "trivy-system",
-      "velero"
+      "velero",
+      "amazon-guardduty"
       ]
   parameters:
     message: "All user namespaces must have a `pod-security.kubernetes.io/enforce: restricted` label."
