@@ -19,9 +19,9 @@ request:
       name: ing-0
       namespace: default-0
     spec:
-      ingressClassName: internal-dev
+      ingressClassName: "internal-non-prod"
       rules:
-      - host: ing-1.internal-dev.cloud-platform.service.justice.gov.uk
+      - host: ing-1.internal-non-prod.cloud-platform.service.justice.gov.uk
         http:
           paths:
           - pathType: Prefix

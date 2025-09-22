@@ -19,7 +19,7 @@ spec:
               type: array
               items:
                 type: string
-            validInternalDevDomains:
+            validInternalNonProdDomains:
               type: array
               items:
                 type: string
@@ -34,8 +34,8 @@ spec:
             glob.match(pattern, [], host)
           }
 
-          valid_internal_dev_domain {
-            pattern := input.parameters.validInternalDevDomains[_]
+          valid_internal_non_prod_domain {
+            pattern := input.parameters.validInternalNonProdDomains[_]
             host := input.review.object.spec.rules[0].host
             glob.match(pattern, [], host)
           }
@@ -50,8 +50,8 @@ spec:
 
           violation[{"msg": msg}] {
             input.review.kind.kind == "Ingress"
-            input.review.object.spec.ingressClassName == "internal-dev"
-            not valid_internal_dev_domain
+            input.review.object.spec.ingressClassName == "internal-non-prod"
+            not valid_internal_non_prod_domain
             host := input.review.object.spec.rules[0].host
-            msg := sprintf("Ingress with ingressClassName '%v' must use domain matching one of %v. Found domain: %v", [input.review.object.spec.ingressClassName, input.parameters.validInternalDevDomains, host])
+            msg := sprintf("Ingress with ingressClassName '%v' must use domain matching one of %v. Found domain: %v", [input.review.object.spec.ingressClassName, input.parameters.validInternalNonProdDomains, host])
           }
