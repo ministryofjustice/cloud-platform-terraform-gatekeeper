@@ -35,6 +35,7 @@ variable "dryrun_map" {
     allow_duplicate_hostname_yaml      = bool
     block_ingresses                    = bool
     ingress_valid_classname            = bool
+    ingress_internal_class_domain      = bool
   })
 }
 
