@@ -41,6 +41,6 @@ locals {
     allow_duplicate_hostname_yaml      = merge(local.allow_duplicate_hostname_yaml, { "spec" : merge(local.allow_duplicate_hostname_yaml["spec"], { "enforcementAction" : var.dryrun_map.allow_duplicate_hostname_yaml ? "dryrun" : "deny" }) })
     block_ingresses_yaml               = merge(local.block_ingresses_yaml, { "spec" : merge(local.block_ingresses_yaml["spec"], { "enforcementAction" : var.dryrun_map.block_ingresses ? "dryrun" : "deny" }) })
     ingress_valid_classname            = merge(local.ingress_valid_classname_yaml, { "spec" : merge(local.ingress_valid_classname_yaml["spec"], { "enforcementAction" : var.dryrun_map.ingress_valid_classname ? "dryrun" : "deny" }) })
-  ingress_internal_class_domain       = merge(local.ingress_internal_class_domain_yaml, { "spec" : merge(local.ingress_internal_class_domain_yaml["spec"], { "enforcementAction" : var.dryrun_map.ingress_internal_class_domain ? "dryrun" : "deny", "parameters" : { "validInternalDomains" : ["*.internal.cloud-platform.service.justice.gov.uk"], "validInternalDevDomains" : ["*.internal-dev.cloud-platform.service.justice.gov.uk"] } }) })
+    ingress_internal_class_domain      = merge(local.ingress_internal_class_domain_yaml, { "spec" : merge(local.ingress_internal_class_domain_yaml["spec"], { "enforcementAction" : var.dryrun_map.ingress_internal_class_domain ? "dryrun" : "deny", "parameters" : { "validInternalDomains" : ["*.internal.cloud-platform.service.justice.gov.uk"], "validInternalDevDomains" : ["*.internal-dev.cloud-platform.service.justice.gov.uk"] } }) })
   }
 }
