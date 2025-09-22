@@ -23,6 +23,7 @@ module "gatekeeper" {
     allow_duplicate_hostname_yaml      = true,
     block_ingresses                    = false,
     ingress_valid_classname            = true,
+    ingress_internal_class_domain      = true,
   }
   cluster_color                        = "green"
   constraint_violations_max_to_display = 25
