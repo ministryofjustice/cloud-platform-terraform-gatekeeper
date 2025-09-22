@@ -13,11 +13,11 @@ tests:
     object: samples/internal_ingress_class_domain/allow_internal_non_prod_domain/case.yaml
     assertions:
     - violations: no
-  - name: deny-external-domain
+  - name: deny-invalid-internal-domain
     object: samples/internal_ingress_class_domain/deny_invalid_internal_domain/case.yaml
     assertions:
     - violations: yes
-  - name: deny-update-to-external-domain
+  - name: deny-invalid-update-to-internal-domain
     object: samples/internal_ingress_class_domain/deny_invalid_update_to_internal_domain/case.yaml
     assertions:
     - violations: yes
