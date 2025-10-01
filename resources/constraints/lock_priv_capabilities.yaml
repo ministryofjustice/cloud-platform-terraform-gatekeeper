@@ -18,7 +18,8 @@ spec:
       "monitoring",
       "smoketest-psa-*",
       "trivy-system",
-      "velero"
+      "velero",
+      "amazon-guardduty"
       ]
     excludedNamespaces: [
       "ingress-controllers",

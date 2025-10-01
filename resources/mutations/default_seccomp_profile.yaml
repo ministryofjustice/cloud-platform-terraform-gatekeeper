@@ -27,7 +27,8 @@ spec:
       "smoketest-psa-*",
       "tigera-operator",
       "trivy-system",
-      "velero"
+      "velero",
+      "amazon-guardduty"
       ]
   location: "spec.securityContext.seccompProfile.type"
   parameters:
