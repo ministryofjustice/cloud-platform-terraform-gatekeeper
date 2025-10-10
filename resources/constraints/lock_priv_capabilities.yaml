@@ -19,7 +19,8 @@ spec:
       "smoketest-psa-*",
       "trivy-system",
       "velero",
-      "amazon-guardduty"
+      "amazon-guardduty",
+      "cilium*"
       ]
     excludedNamespaces: [
       "ingress-controllers",

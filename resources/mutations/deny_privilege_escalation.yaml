@@ -28,7 +28,8 @@ spec:
       "tigera-operator",
       "trivy-system",
       "velero",
-      "amazon-guardduty"
+      "amazon-guardduty",
+      "cilium*"
       ]
   location: "spec.containers[name:*].securityContext.allowPrivilegeEscalation"
   parameters:
