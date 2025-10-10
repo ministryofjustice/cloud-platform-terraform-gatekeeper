@@ -26,7 +26,8 @@ spec:
       "tigera-operator",
       "trivy-system",
       "velero",
-      "amazon-guardduty"
+      "amazon-guardduty",
+      "cilium*"
       ]
   parameters:
     message: "All user namespaces must have a `pod-security.kubernetes.io/enforce: restricted` label."
