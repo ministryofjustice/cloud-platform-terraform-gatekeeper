@@ -4,7 +4,7 @@ metadata:
   name: k8sservicetypeloadbalancer
 spec:
   match:
-    excludedNamespaces: ["ingress-controllers"]
+    excludedNamespaces: ["gateway-api"]
     kinds:
       - kinds: ["Service"]
 

@@ -33,7 +33,7 @@ resource "helm_release" "gatekeeper" {
   namespace  = kubernetes_namespace.gatekeeper.id
   repository = "https://open-policy-agent.github.io/gatekeeper/charts"
   chart      = "gatekeeper"
-  version    = "3.19.1"
+  version    = "3.21.0"
 
   # https://github.com/open-policy-agent/gatekeeper/blob/master/charts/gatekeeper/values.yaml
   values = [templatefile("${path.module}/templates/values.yaml.tpl", {
@@ -75,7 +75,6 @@ module "constraints" {
   source = "./constraints"
 
   dryrun_map            = var.dryrun_map
-  cluster_color         = var.cluster_color
   cluster_domain_name   = var.cluster_domain_name
   integration_test_zone = var.integration_test_zone
 
@@ -100,9 +99,6 @@ metadata:
 spec:
   sync:
     syncOnly:
-      - group: "networking.k8s.io"
-        version: "v1"
-        kind: "Ingress"
       - group: ""
         version: "v1"
         kind: "Namespace"
