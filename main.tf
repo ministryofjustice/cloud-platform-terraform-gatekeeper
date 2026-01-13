@@ -21,7 +21,7 @@ resource "kubernetes_namespace" "gatekeeper" {
   }
 }
 
-# By adding this label gatekeeper will ignore kube-system for all policy decisions. 
+# By adding this label gatekeeper will ignore kube-system for all policy decisions.
 resource "null_resource" "kube_system_ns_label" {
   provisioner "local-exec" {
     command = "kubectl label --overwrite ns kube-system 'admission.gatekeeper.sh/ignore=true'"
@@ -75,7 +75,6 @@ module "constraints" {
   source = "./constraints"
 
   dryrun_map            = var.dryrun_map
-  cluster_domain_name   = var.cluster_domain_name
   integration_test_zone = var.integration_test_zone
 
   depends_on = [time_sleep.wait_30_seconds_for_templates]

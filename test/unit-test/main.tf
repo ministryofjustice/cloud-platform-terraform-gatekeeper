@@ -6,7 +6,6 @@ provider "aws" {
 module "gatekeeper" {
   source = "../../"
 
-  cluster_domain_name = "gatekeeper.cloud-platform.service.justice.gov.uk"
   dryrun_map = {
     service_type                       = true,
     warn_service_account_secret_delete = true,

@@ -16,7 +16,7 @@ A downside of this approach, is that you have to pass variables twice (small amo
 3. Update the `constraint_map` in the local block in the `constraints/locals.tf` file
 4. Update the `dryrun_map` variable in the `variables.tf` and `constraints/variables.tf` files
 5. Update the `dryrun_map` variable in the `test/unit-test/main.tf` file
-6. Update the `dryrun_map` variable in the `example/main.tf` file 
+6. Update the `dryrun_map` variable in the `example/main.tf` file
 
 ### Configuring constraints
 
@@ -24,7 +24,7 @@ The constraint template design allows you to define a template and then instanti
 Constraints are flexible and can take input variables, the best way to configure these parameters from terraform values is through `constraints/locals.tf`.
 In `constraints/locals.tf` we read the constraint from yaml and convert it to json so you can change values and add new keys easily. We convert this back into yaml for terraform to apply as a k8s manifest.
 
-### Caveats: 
+### Caveats:
 
  - to generate the audit report, it seems advisable to query a cache of filtered K8s objects, rather than hit the API each time (60 sec intervals default); because of that any kind used by a constraint template must also be added to the sync config at the end of constraints.tf
  - deleting a ConstraintTemplate that still has Constraints breaks things badly; only deleting the CRDs (which in turn removes all the constraints) unblocks again
@@ -87,7 +87,6 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cluster_domain_name"></a> [cluster\_domain\_name](#input\_cluster\_domain\_name) | The cluster domain used for externalDNS annotations and certmanager | `any` | n/a | yes |
 | <a name="input_define_constraints"></a> [define\_constraints](#input\_define\_constraints) | if false, only the app is deployed, no constraints | `bool` | `true` | no |
 
 ## Outputs
