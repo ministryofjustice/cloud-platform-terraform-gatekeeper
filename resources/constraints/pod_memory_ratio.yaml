@@ -1,0 +1,32 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: k8spodmemoryratio
+metadata:
+  name: enforce-memory-request-limit-ratio
+spec:
+  parameters:
+    maxRatio: 2
+  match:
+    kinds:
+    - apiGroups: [""]
+      kinds: ["Pod"]
+    excludedNamespaces: [
+      "calico-apiserver",
+      "calico-system",
+      "cert-manager",
+      "concourse",
+      "gatekeeper-system",
+      "ingress-controllers",
+      "kube-system",
+      "kube-node-lease",
+      "kube-public",
+      "default",
+      "kuberos",
+      "logging",
+      "monitoring",
+      "smoketest-psp-*",
+      "smoketest-psa-*",
+      "tigera-operator",
+      "trivy-system",
+      "velero",
+      "amazon-guardduty"
+      ]

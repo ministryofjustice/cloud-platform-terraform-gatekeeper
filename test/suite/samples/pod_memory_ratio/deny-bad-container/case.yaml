@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: deny-bad-container
+spec:
+  containers:
+  - name: good
+    image: nginx
+    resources:
+      requests:
+        memory: 256Mi
+      limits:
+        memory: 512Mi
+  - name: bad
+    image: nginx
+    resources:
+      requests:
+        memory: 256Mi
+      limits:
+        memory: 1024Mi

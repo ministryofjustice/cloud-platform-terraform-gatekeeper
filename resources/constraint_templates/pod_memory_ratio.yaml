@@ -1,0 +1,43 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8spodmemoryratio
+  annotations:
+    metadata.gatekeeper.sh/title: Ensure pod memory limits are within a specified ratio of requests
+    description: |
+      This policy ensures that all containers in a pod have memory limits set within a specified ratio of their memory requests.
+      This helps to prevent over-provisioning of memory resources in the cluster.
+
+      The ratio can be configured via the `maxRatio` parameter in the corresponding Constraint.
+spec:
+  crd:
+    spec:
+      names:
+        kind: k8spodmemoryratio
+  targets:
+  - target: admission.k8s.gatekeeper.sh
+    rego: |
+      package k8spodmemoryratio
+
+      violation[{"msg": msg}] {
+        container := input.review.object.spec.containers[_]
+        
+        raw_req := container.resources.requests.memory
+        raw_lim := container.resources.limits.memory
+
+        req_bytes := units.parse_bytes(raw_req)
+        lim_bytes := units.parse_bytes(raw_lim)
+
+        lim_bytes > (req_bytes * input.parameters.maxRatio)
+
+      msg := sprintf(
+        "container %q has a memory limit (%v) that exceeds %vx its request (%v). The Cloud Platform recommends not exceeding a %vx memory request-to-limit ratio. This request was not blocked, but please adjust the values accordingly.",
+        [
+          container.name,
+          raw_lim,
+          input.parameters.maxRatio,
+          raw_req,
+          input.parameters.maxRatio
+        ]
+      )
+      }
