@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: deny-ratio-greater-than-2
+spec:
+  containers:
+  - name: app
+    image: nginx
+    resources:
+      requests:
+        memory: 512Mi
+      limits:
+        memory: 2Gi

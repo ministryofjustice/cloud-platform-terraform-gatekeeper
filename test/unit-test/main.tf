@@ -28,6 +28,7 @@ module "gatekeeper" {
     block_ingresses                    = false,
     ingress_valid_classname            = true,
     ingress_internal_class_domain      = true,
+    pod_memory_ratio                   = false,
   }
   cluster_color                        = "green"
   constraint_violations_max_to_display = 25

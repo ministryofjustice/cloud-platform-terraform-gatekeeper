@@ -1,0 +1,26 @@
+kind: Suite
+apiVersion: test.gatekeeper.sh/v1alpha1
+tests:
+- name: pod_memory_ratio
+  template: ../../resources/constraint_templates/pod_memory_ratio.yaml
+  constraint: ../../resources/constraints/pod_memory_ratio.yaml
+  cases:
+  - name: allow-ratio-less-than-2
+    object: samples/pod_memory_ratio/allow_ratio_less_than_2/case.yaml
+    assertions:
+    - violations: no
+
+  - name: allow-ratio-equal-2
+    object: samples/pod_memory_ratio/allow_ratio_equal_2/case.yaml
+    assertions:
+    - violations: no
+
+  - name: deny-ratio-greater-than-2
+    object: samples/pod_memory_ratio/deny_ratio_greater_than_2/case.yaml
+    assertions:
+    - violations: yes
+
+  - name: deny-bad-container
+    object: samples/pod_memory_ratio/deny-bad-container/case.yaml
+    assertions:
+    - violations: yes    
