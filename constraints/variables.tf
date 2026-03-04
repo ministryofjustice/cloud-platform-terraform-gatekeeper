@@ -34,6 +34,7 @@ variable "dryrun_map" {
     warn_kubectl_create_sa             = bool
     allow_duplicate_hostname_yaml      = bool
     block_ingresses                    = bool
+    block_snippet_annotations          = bool
     ingress_valid_classname            = bool
     ingress_internal_class_domain      = bool
     pod_memory_ratio                   = bool

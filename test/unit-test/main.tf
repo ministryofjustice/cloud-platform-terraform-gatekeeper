@@ -26,6 +26,7 @@ module "gatekeeper" {
     warn_kubectl_create_sa             = true,
     allow_duplicate_hostname_yaml      = true,
     block_ingresses                    = false,
+    block_snippet_annotations          = true,
     ingress_valid_classname            = true,
     ingress_internal_class_domain      = true,
     pod_memory_ratio                   = false,
