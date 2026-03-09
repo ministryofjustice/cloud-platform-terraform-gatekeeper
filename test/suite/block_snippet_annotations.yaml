@@ -1,0 +1,27 @@
+kind: Suite
+apiVersion: test.gatekeeper.sh/v1alpha1
+tests:
+- name: block_snippet_annotations
+  template: ../../resources/constraint_templates/block_snippet_annotations.yaml
+  constraint: ../../resources/constraints/block_snippet_annotations.yaml
+  cases:
+  - name: allow-no-snippet
+    object: samples/block_snippet_annotations/allow_no_snippet/case.yaml
+    assertions:
+    - violations: no
+  - name: allow-other-snippet
+    object: samples/block_snippet_annotations/allow_other_snippet/case.yaml
+    assertions:
+    - violations: no
+  - name: allow-delete-with-auth-snippet
+    object: samples/block_snippet_annotations/allow_delete/case.yaml
+    assertions:
+    - violations: no
+  - name: deny-auth-snippet
+    object: samples/block_snippet_annotations/deny_auth_snippet/case.yaml
+    assertions:
+    - violations: yes
+  - name: deny-stream-snippet
+    object: samples/block_snippet_annotations/deny_stream_snippet/case.yaml
+    assertions:
+    - violations: yes

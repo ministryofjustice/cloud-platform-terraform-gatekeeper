@@ -1,0 +1,31 @@
+kind: AdmissionReview
+apiVersion: admission.k8s.io/v1beta1
+request:
+  kind:
+    group: networking.k8s.io
+    version: v1
+    kind: Ingress
+  operation: "DELETE"
+  name: ing-0
+  namespace: my-namespace
+  oldObject:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: ing-0
+      namespace: my-namespace
+      annotations:
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          if ($http_authorization = '') { return 403; }
+    spec:
+      ingressClassName: modsec
+      rules:
+        - host: ing-0.example.com
+          http:
+            paths:
+            - backend:
+                service:
+                  name: helloworld
+                  port:
+                    name: http
+              pathType: ImplementationSpecific
