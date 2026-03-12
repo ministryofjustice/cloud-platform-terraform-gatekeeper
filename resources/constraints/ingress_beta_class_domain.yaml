@@ -1,0 +1,9 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: k8singressbetaclassdomain
+metadata:
+  name: ingress-beta-class-domain
+spec:
+  enforcementAction: deny
+  parameters:
+    validBetaDomains:
+      - "*.beta.cloud-platform.service.justice.gov.uk"
