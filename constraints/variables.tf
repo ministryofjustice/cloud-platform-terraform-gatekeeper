@@ -37,6 +37,7 @@ variable "dryrun_map" {
     block_snippet_annotations          = bool
     ingress_valid_classname            = bool
     ingress_internal_class_domain      = bool
+    ingress_beta_class_domain          = bool
     pod_memory_ratio                   = bool
   })
 }

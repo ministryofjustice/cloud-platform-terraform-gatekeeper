@@ -29,6 +29,7 @@ module "gatekeeper" {
     block_snippet_annotations          = true,
     ingress_valid_classname            = true,
     ingress_internal_class_domain      = true,
+    ingress_beta_class_domain          = true,
     pod_memory_ratio                   = false,
   }
   cluster_color                        = "green"

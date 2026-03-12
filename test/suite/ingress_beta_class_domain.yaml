@@ -1,0 +1,19 @@
+kind: Suite
+apiVersion: test.gatekeeper.sh/v1alpha1
+tests:
+- name: ingress_beta_class_domain
+  template: ../../resources/constraint_templates/ingress_beta_class_domain.yaml
+  constraint: ../../resources/constraints/ingress_beta_class_domain.yaml
+  cases:
+  - name: allow-beta-domain
+    object: samples/ingress_beta_class_domain/allow_beta_domain/case.yaml
+    assertions:
+    - violations: no
+  - name: deny-invalid-beta-domain
+    object: samples/ingress_beta_class_domain/deny_invalid_beta_domain/case.yaml
+    assertions:
+    - violations: yes
+  - name: allow-non-beta-class
+    object: samples/ingress_beta_class_domain/allow_non_beta_class/case.yaml
+    assertions:
+    - violations: no
