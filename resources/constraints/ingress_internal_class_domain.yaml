@@ -9,3 +9,5 @@ spec:
       - "*.internal.cloud-platform.service.justice.gov.uk"
     validInternalNonProdDomains:
       - "*.internal-non-prod.cloud-platform.service.justice.gov.uk"
+    validBetaDomains:
+      - "*.beta.cloud-platform.service.justice.gov.uk"
