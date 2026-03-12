@@ -5,32 +5,34 @@ metadata:
   annotations:
     metadata.gatekeeper.sh/title: Ensure ingressClassName is valid
     description: |
-        This policy denies any Ingress resources that do not specify an ingressClassName or specify an invalid one.
-
-        The allowed ingress class names can be configured via the 'allowedIngressClasses' parameter in the Constraint.
+        This policy denies any Ingress that specifies an ingressClassName which
+        does not exist as an IngressClass object on the cluster. The set of valid
+        classes is determined dynamically from the live cluster inventory, so no
+        static allowlist needs to be maintained. Different clusters may have
+        different IngressClasses (e.g. some clusters do not have internal ingress).
 spec:
   crd:
     spec:
       names:
         kind: k8singressclassname
-      validation:
-        openAPIV3Schema:
-          properties:
-            allowedIngressClasses:
-              type: array
-              items:
-                type: string
   targets:
     - target: admission.k8s.gatekeeper.sh
       rego: |
         package k8singressclassname
 
+        blocked_operations := {"CREATE", "UPDATE"}
+
+        # Collect all IngressClass names present on this cluster via Gatekeeper inventory sync.
+        # Populated automatically from live cluster state - varies per cluster.
+        valid_classes := {name | data.inventory.cluster["networking.k8s.io/v1"]["IngressClass"][name]}
+
         violation[{"msg": msg}] {
           input.review.kind.kind == "Ingress"
-          not ingress_class_allowed
-          msg := sprintf("IngressClassName '%s' is not allowed. Allowed values: %v", [input.review.object.spec.ingressClassName, input.parameters.allowedIngressClasses])
-        }
-
-        ingress_class_allowed {
-          input.review.object.spec.ingressClassName == input.parameters.allowedIngressClasses[_]
+          blocked_operations[input.review.operation]
+          class := input.review.object.spec.ingressClassName
+          not valid_classes[class]
+          msg := sprintf(
+            "Ingress '%s/%s' uses ingressClassName '%s' which does not exist on this cluster. Valid classes: %v",
+            [input.review.object.metadata.namespace, input.review.object.metadata.name, class, valid_classes]
+          )
         }

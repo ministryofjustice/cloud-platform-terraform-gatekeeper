@@ -1,0 +1,29 @@
+kind: AdmissionReview
+apiVersion: admission.k8s.io/v1beta1
+request:
+  kind:
+    group: networking.k8s.io
+    version: v1
+    kind: Ingress
+  operation: "CREATE"
+  name: ing-internal
+  namespace: my-namespace
+  object:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: ing-internal
+      namespace: my-namespace
+    spec:
+      ingressClassName: internal
+      rules:
+      - host: my-service.example.com
+        http:
+          paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: my-service
+                port:
+                  number: 80

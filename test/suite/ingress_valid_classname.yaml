@@ -5,35 +5,68 @@ tests:
   template: ../../resources/constraint_templates/ingress_valid_classname.yaml
   constraint: ../../resources/constraints/ingress_valid_classname.yaml
   cases:
+  # --- Allow cases: these clusters have all 7 IngressClass objects ---
   - name: allow-classname-default
+    inventory:
+      - samples/ingress_valid_classname/all_ingressclasses.yaml
     object: samples/ingress_valid_classname/allow_classname/case_default.yaml
     assertions:
     - violations: no
   - name: allow-classname-default-non-prod
+    inventory:
+      - samples/ingress_valid_classname/all_ingressclasses.yaml
     object: samples/ingress_valid_classname/allow_classname/case_default-non-prod.yaml
     assertions:
     - violations: no
   - name: allow-classname-internal
+    inventory:
+      - samples/ingress_valid_classname/all_ingressclasses.yaml
     object: samples/ingress_valid_classname/allow_classname/case_internal.yaml
     assertions:
     - violations: no
   - name: allow-classname-internal-laa
+    inventory:
+      - samples/ingress_valid_classname/all_ingressclasses.yaml
     object: samples/ingress_valid_classname/allow_classname/case_internal-laa.yaml
     assertions:
     - violations: no
   - name: allow-classname-modsec
+    inventory:
+      - samples/ingress_valid_classname/all_ingressclasses.yaml
     object: samples/ingress_valid_classname/allow_classname/case_modsec.yaml
     assertions:
     - violations: no
   - name: allow-classname-modsec-non-prod
+    inventory:
+      - samples/ingress_valid_classname/all_ingressclasses.yaml
     object: samples/ingress_valid_classname/allow_classname/case_modsec-non-prod.yaml
     assertions:
     - violations: no
+  # --- Deny cases: class name not in cluster inventory ---
   - name: deny-classname-invalid
+    inventory:
+      - samples/ingress_valid_classname/all_ingressclasses.yaml
     object: samples/ingress_valid_classname/deny_classname/case.yaml
     assertions:
     - violations: yes
   - name: deny-update-classname-invalid
+    inventory:
+      - samples/ingress_valid_classname/all_ingressclasses.yaml
     object: samples/ingress_valid_classname/deny_update_classname/case.yaml
     assertions:
     - violations: yes
+  # --- Dynamic cluster test: 'internal' class is valid on some clusters but not others.
+  #     This cluster only has 'default' and 'modsec', so 'internal' must be denied. ---
+  - name: deny-class-not-on-this-cluster
+    inventory:
+      - samples/ingress_valid_classname/deny_class_not_on_cluster/inventory.yaml
+    object: samples/ingress_valid_classname/deny_class_not_on_cluster/case.yaml
+    assertions:
+    - violations: yes
+  # --- DELETE must always be allowed, even if the class is invalid ---
+  - name: allow-delete-invalid-class
+    inventory:
+      - samples/ingress_valid_classname/all_ingressclasses.yaml
+    object: samples/ingress_valid_classname/allow_delete_invalid_class/case.yaml
+    assertions:
+    - violations: no

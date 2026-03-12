@@ -6,13 +6,4 @@ spec:
   match:
     kinds:
       - kinds: ["Ingress"]
-        apiGroups: ["extensions", "networking.k8s.io"]
-  parameters:
-    allowedIngressClasses:
-        - default
-        - default-non-prod
-        - modsec
-        - modsec-non-prod
-        - internal
-        - internal-non-prod
-        - internal-laa
+        apiGroups: ["networking.k8s.io"]
