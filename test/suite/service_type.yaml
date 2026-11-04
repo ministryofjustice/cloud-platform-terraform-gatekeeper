@@ -29,3 +29,15 @@ tests:
     object: samples/service_type/deny_no_annotation_key/case.yaml
     assertions:
     - violations: yes
+  - name: allow-envoy-gateway
+    object: samples/service_type/allow_envoy_gateway/case.yaml
+    assertions:
+    - violations: no
+  - name: allow-existing-ingress
+    object: samples/service_type/allow_existing_ingress/case.yaml
+    assertions:
+    - violations: no
+  - name: deny-similar-envoy-namespace
+    object: samples/service_type/deny_similar_envoy_namespace/case.yaml
+    assertions:
+    - violations: yes

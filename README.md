@@ -30,6 +30,20 @@ In `constraints/locals.tf` we read the constraint from yaml and convert it to js
  - deleting a ConstraintTemplate that still has Constraints breaks things badly; only deleting the CRDs (which in turn removes all the constraints) unblocks again
  - no colons (:) in the description field
 
+## Envoy Gateway namespace
+
+The `envoy-gateway-namespace` branch adds `envoy-gateway-system` to the
+user-namespace PSA-label and LoadBalancer Service exceptions. Existing
+exceptions, including `ingress-controllers`, remain unchanged.
+
+The infrastructure layer owns the Envoy namespace and sets
+`pod-security.kubernetes.io/enforce: privileged`. Update these Gatekeeper
+constraints before creating that namespace. This is a namespace PSA profile,
+not a change to container `securityContext.privileged`.
+
+No blanket webhook bypass, mutation exemption or Gatekeeper chart upgrade is
+included. Tenant namespaces remain subject to the existing restrictions.
+
 ## Testing
 
 gatekeeper provides a neat [cli tool](https://open-policy-agent.github.io/gatekeeper/website/docs/gator/) for testing. Once installed you can run the following command to verify the test suite has the expected violations:

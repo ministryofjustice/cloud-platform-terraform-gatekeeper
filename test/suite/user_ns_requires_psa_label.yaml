@@ -13,6 +13,15 @@ tests:
       object: samples/ns_requires_psa_label/allow_excluded_ns/case.yaml
       assertions:
       - violations: no 
+    - name: allow-envoy-privileged-namespace
+      object: samples/ns_requires_psa_label/allow_envoy_privileged/case.yaml
+      assertions:
+      - violations: no
+    - name: deny-similar-envoy-privileged-namespace
+      object: samples/ns_requires_psa_label/deny_similar_envoy_privileged/case.yaml
+      assertions:
+      - violations: yes
+        message: "All user namespaces must have a `pod-security.kubernetes.io/enforce: restricted` label."
     - name: deny-invalid-ns
       object: samples/ns_requires_psa_label/deny_invalid_ns/case.yaml
       assertions:
@@ -23,4 +32,3 @@ tests:
       assertions:
       - violations: yes 
         message: "All user namespaces must have a `pod-security.kubernetes.io/enforce: restricted` label."
-
