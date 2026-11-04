@@ -41,6 +41,10 @@ The infrastructure layer owns the Envoy namespace and sets
 constraints before creating that namespace. This is a namespace PSA profile,
 not a change to container `securityContext.privileged`.
 
+The output `envoy_gateway_namespace_labels` waits for the constraints. Pass it
+to the Envoy installation module's `namespace_labels` input so namespace
+creation follows policy updates without deferring CRD chart rendering.
+
 No blanket webhook bypass, mutation exemption or Gatekeeper chart upgrade is
 included. Tenant namespaces remain subject to the existing restrictions.
 
